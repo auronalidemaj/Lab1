@@ -27,7 +27,8 @@ body {
   display: flex;
   align-items: center;
   font-size: 1.5rem; 
-  color:#574c4c; 
+  font-weight: bold;
+  color:#2f234f; 
 }
 
 .logo svg {
@@ -41,10 +42,36 @@ body {
 }
 .menu-icon {
   display: none;
+  cursor: pointer;
+}
+
+.menu-icon svg {
+  height: 40px; 
+  width: 40px; 
 }
 
 .nav-elements {
 }
+.nav-login-btn {
+  background-color: #2f234f;
+  color: #fef7e5;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; /* add transition for smoother effect */
+}
+
+.nav-login-btn:hover {
+  background-color: #2f234f; /* keep same background color */
+  color: #ccc; /* change text color to gray */
+  transform: scale(1.1); /* increase size by 10% */
+}
+
+
 
 .nav-elements ul {
   display: flex;
@@ -116,3 +143,4 @@ body {
     margin-top: 22px;
   }
 }
+
