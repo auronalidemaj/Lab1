@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { ReactComponent as Hamburger } from './logo.svg'
-import { ReactComponent as Brand } from './logo.svg'
-import './header.css'
+import { ReactComponent as Hamburger } from './icons/logo.svg'
+import { ReactComponent as Brand } from './icons/logo.svg'
+import './style/header.css'
 
 const Header = () => {
     const [showNavbar, setShowNavbar] = useState(false)
