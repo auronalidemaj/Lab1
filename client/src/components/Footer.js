@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Footer() {
+function footer() {
   return (
       <><footer className="top">
           <img src="logo.svg" alt="Logo" />
@@ -30,4 +30,4 @@ function Footer() {
   )
 }
 
-export default Footer
+export default footer
