@@ -52,9 +52,9 @@ import React, { useState } from 'react'
         <div style={leftArrowStyles} onClick={goToPrevious}>)</div>
         <img src={slider[currentIndex].url} alt={slider[currentIndex].title} style={{width: "100%", height: "100%"}} onClick={goToNext} />
         <div style={rightArrowStyles} onClick={goToNext}>(</div>
-        <div>
-            {slides.map()}
-        </div>
+        {/* <div>
+            {slider.map()}
+        </div> */}
     </div>
   )
 }
