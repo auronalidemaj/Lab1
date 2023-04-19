@@ -15,36 +15,17 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+
 }
 
 .navbar {
   height: 70px;
   background-color: #fef7e5;
   position: relative;
+  z-index: 9999;
 }
 .nav-elements {
 }
-.nav-login-btn {
-  background-color: #2f234f;
-  color: #fef7e5;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.nav-login-btn:hover {
-  background-color: #2f234f;
-  color: #ccc;
-  transform: scale(1.1); 
-}
-
-
-
 .nav-elements ul {
   display: flex;
   justify-content: space-between;
@@ -102,7 +83,7 @@ body {
   border-radius: 20px;
   background-color: white;
   font-size: 1rem;
-  margin-right: 8px;
+  margin-right: 0px;
   display: flex;
   align-items: center;
 }
@@ -128,9 +109,9 @@ body {
   fill: #2f234f;
 }
 .cart-icon {
-  height: 30px;
-  width: 30px;
-  margin-left: 5px;
+  height: 25px;
+  width: 25px;
+  margin-left: 0px;
   margin-right: 0px;
 }
 .cart-icon path {
@@ -138,15 +119,15 @@ body {
 }
 
 .cart-icon:hover {
-  transform: scale(1.2);
+  transform: scale(1.07);
 }
 
 .wishlist-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   margin-right: 0px;
   cursor: pointer;
 }
@@ -160,13 +141,31 @@ body {
   fill: #2f234f
 }
 
-.wishlist-icon:hover  {
- 
-  transform: scale(1.2);
+.wishlist-icon:hover path {
+  fill:red;
+  transform: scale(1.07);
 }
 
 .wishlist-icon:focus {
   outline: none;
+}
+.nav-login-btn {
+  background-color: #2f234f;
+  color: #fef7e5;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-login-btn:hover {
+  background-color: #2f234f;
+  color: #ccc;
+  transform: scale(1.1); 
 }
 
 .menu-icon {
@@ -178,16 +177,7 @@ body {
   height: 40px; 
   width: 40px; 
 }
-
-
-
-@media (max-width: 768px) {
-  .nav-elements ul li:not(:last-child) {
-    margin-right: 30px;
-  }
-}
-
-@media (max-width: 600px) {
+@media screen and (max-width: 1023px) {
   .menu-icon {
     display: block;
     cursor: pointer;
@@ -213,9 +203,14 @@ body {
     flex-direction: column;
   }
 
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+
   .nav-elements ul li {
     margin-right: unset;
     margin-top: 22px;
   }
 }
+
 
