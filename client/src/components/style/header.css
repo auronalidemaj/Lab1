@@ -15,64 +15,17 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+
 }
 
 .navbar {
-  height: 60px;
+  height: 70px;
   background-color: #fef7e5;
   position: relative;
+  z-index: 9999;
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem; 
-  font-weight: bold;
-  color:#2f234f; 
-}
-
-.logo svg {
-  height: 40px; 
-  width: 40px; 
-  margin-right: 10px; 
-}
-
-.logo .emri {
-  margin: 0; 
-}
-.menu-icon {
-  display: none;
-  cursor: pointer;
-}
-
-.menu-icon svg {
-  height: 40px; 
-  width: 40px; 
-}
-
 .nav-elements {
 }
-.nav-login-btn {
-  background-color: #2f234f;
-  color: #fef7e5;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out; /* add transition for smoother effect */
-}
-
-.nav-login-btn:hover {
-  background-color: #2f234f; /* keep same background color */
-  color: #ccc; /* change text color to gray */
-  transform: scale(1.1); /* increase size by 10% */
-}
-
-
-
 .nav-elements ul {
   display: flex;
   justify-content: space-between;
@@ -80,7 +33,7 @@ body {
 }
 
 .nav-elements ul li:not(:last-child) {
-  margin-right: 60px;
+  margin-right: 30px;
 }
 
 .nav-elements ul a {
@@ -106,13 +59,125 @@ body {
   background-color: #574c4c;
 }
 
-@media (max-width: 768px) {
-  .nav-elements ul li:not(:last-child) {
-    margin-right: 30px;
-  }
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem; 
+  font-weight: bold;
+  color:#2f234f; 
 }
 
-@media (max-width: 600px) {
+.logo svg {
+  height: 40px; 
+  width: 40px; 
+  margin-right: 10px; 
+}
+
+.logo .emri {
+  margin: 0; 
+}
+.search-box {
+  padding: 6px;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 1rem;
+  margin-right: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+}
+
+.search-box svg {
+  width: 12px;
+  height: 12px;
+  margin-right: 0.5em;
+  
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-icon path {
+  fill: #2f234f;
+}
+.cart-icon {
+  height: 25px;
+  width: 25px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.cart-icon path {
+  fill: #2f234f;
+}
+
+.cart-icon:hover {
+  transform: scale(1.07);
+}
+
+.wishlist-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px;
+  margin-right: 0px;
+  cursor: pointer;
+}
+
+.wishlist-icon svg{
+  height: 30px;
+  width: 30px;
+}
+
+.wishlist-icon path {
+  fill: #2f234f
+}
+
+.wishlist-icon:hover path {
+  fill:red;
+  transform: scale(1.07);
+}
+
+.wishlist-icon:focus {
+  outline: none;
+}
+.nav-login-btn {
+  background-color: #2f234f;
+  color: #fef7e5;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-login-btn:hover {
+  background-color: #2f234f;
+  color: #ccc;
+  transform: scale(1.1); 
+}
+
+.menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.menu-icon svg {
+  height: 40px; 
+  width: 40px; 
+}
+@media screen and (max-width: 1023px) {
   .menu-icon {
     display: block;
     cursor: pointer;
@@ -138,9 +203,14 @@ body {
     flex-direction: column;
   }
 
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+
   .nav-elements ul li {
     margin-right: unset;
     margin-top: 22px;
   }
 }
+
 

@@ -3,13 +3,23 @@ import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { ReactComponent as Hamburger } from './icons/menu.svg';
 import { ReactComponent as Brand } from './icons/logo4.svg';
+import { ReactComponent as SearchIcon } from './icons/download-5.svg';
+import { ReactComponent as WishlistIcon } from './icons/wishlist-1.svg';
+import { ReactComponent as CartIcon } from './icons/cart.svg';
 import './style/header.css';
 
 const Header = () => {
   const [showNavbar, setShowNavbar] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(`Perform search action with query: ${searchQuery}`);
+    setSearchQuery('');
   };
 
   return (
@@ -31,7 +41,27 @@ const Header = () => {
               <NavLink to="/products">Products</NavLink>
             </li>
             <li>
-              <NavLink to="/cart">Cart</NavLink>
+              <form onSubmit={handleSearch}>
+                <div className="search-box">
+                  <SearchIcon className="search-icon"/>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search books..."
+                  />
+                </div>
+              </form>
+            </li>
+            <li>
+              <Link to="/cart">
+                <CartIcon className="cart-icon" />
+              </Link>
+            </li>
+            <li>
+              <Link to="/wishlist">
+                <WishlistIcon className="wishlist-icon" />
+              </Link>
             </li>
             <li>
               <Link to="/login">
