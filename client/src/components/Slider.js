@@ -1,24 +1,96 @@
-import React from 'react'
-import ImageSlider from './ImageSlider'
+import { useState, useEffect } from 'react';
 
-function Slider() {
-  const containerStyles = {
-    width:'500px',
-    height: '280px',
-    margin: '0px auto'
-  }
-  const slides = [
-    {url:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg', title: 'foto1'},
-    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq87WieyFJ93-wR-FrTk0JG8kWz2sT8HtuGN7PkEQ3mxCEsFQmFoKOXZVP1__Yl3L-G08&usqp=CAU', title: 'foto2'},
-    {url:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg', title: 'foto3'},
-    {url:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg', title: 'foto4'},
-    {url:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg', title: 'foto5'},
-  ]
-  return (
-    <div style={containerStyles}>
-      <ImageSlider slider={slides}/>
-    </div>
-  )
+const slideshow = {
+  border: 'none',
+  width: '100%',
+  height: '500px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+};
+
+const prevButton = {
+  position: 'absolute',
+  height: '500px',
+  top: '50%',
+  border: 'none',
+  backgroundColor: 'transparent',
+  left: '0',
+  color: 'black',
+  transform: 'translate(0%, -50%)',
+  zIndex: 1,
+};
+
+const nextButton = {
+  position: 'absolute',
+  height: '400px',
+  backgroundColor: 'transparent',
+  border: 'none',
+  top: '50%',
+  color: 'black',
+  right: '0',
+  transform: 'translate(0%, -50%)',
+  zIndex: 1,
+};
+
+const dotsContainerSlide = {
+  dispay : 'flex',
+  justifyContent: 'center'
 }
 
-export default Slider
+const dotStyle ={
+  margin: '0 3px',
+  cursor: 'pointer',
+  fontSize: '20px'
+}
+
+const Slider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [imgArray, setImgArray] = useState([
+    'https://www.roadaffair.com/wp-content/uploads/2020/11/el-pendulo-bookstore-mexico-city-flickr.jpg',
+    'https://secretsanfrancisco.com/wp-content/uploads/2021/10/black-bird-books.jpg',
+    'https://www.scatteredbooks.com/wp-content/uploads/2019/02/home-slider-content-background-img_panorama.jpg',
+  ]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentIndex((currentIndex + 1) % imgArray.length);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [currentIndex, imgArray]);
+
+  const handlePrevClick = () => {
+    setCurrentIndex((currentIndex - 1 + imgArray.length) % imgArray.length);
+  };
+
+  const handleNextClick = () => {
+    setCurrentIndex((currentIndex + 1) % imgArray.length);
+  };
+
+  // const goToSlide = (slideIndex) => {
+  //   setCurrentIndex(slideIndex);
+  // }
+
+  const slideStyle = {
+    ...slideshow,
+    backgroundImage: `url(${imgArray[currentIndex]})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
+
+  return (
+    <>
+    <div style={slideStyle}>
+      <button onClick={handlePrevClick} style={{ ...prevButton}}>
+      <b>Previous</b>
+      </button>
+      <button onClick={handleNextClick} style={{ ...nextButton}}>
+        <b>Next</b>
+      </button>
+    </div>
+  </>
+  );
+};
+
+export default Slider;
