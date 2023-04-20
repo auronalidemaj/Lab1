@@ -5,7 +5,7 @@ import twitter from './icons/twitter.png'
 import instagram from './icons/instagram.png'
 import linkedin from './icons/linkedin.png'
 
-function footer() {
+function Footer() {
   return (
     <>
       <div className="footer">
@@ -78,4 +78,4 @@ function footer() {
   );
 }
 
-export default footer;
+export default Footer;
