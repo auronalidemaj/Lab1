@@ -67,6 +67,10 @@ body {
   color:#2f234f; 
 }
 
+.logo path{
+  fill:#342360;
+}
+
 .logo svg {
   height: 40px; 
   width: 40px; 
