@@ -17,6 +17,7 @@ const prevButton = {
   backgroundColor: 'transparent',
   left: '0',
   color: 'black',
+  cursor: 'pointer',
   transform: 'translate(0%, -50%)',
   zIndex: 1,
 };
