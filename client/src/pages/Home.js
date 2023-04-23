@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import Slider from '../components/Slider'
-import Dashboard from '../components/dashboard'
 import Axios from 'axios'
 function Home() {
   const [role, setRole] = useState('')
@@ -16,7 +15,7 @@ function Home() {
   return (
     <>
     <Slider/>
-    {role == 'admin' && <Dashboard/>}
+
 
     </>
   )
