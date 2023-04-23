@@ -6,6 +6,7 @@ import { ReactComponent as Brand } from './icons/logo4.svg';
 import { ReactComponent as SearchIcon } from './icons/download-5.svg';
 import { ReactComponent as WishlistIcon } from './icons/wishlist-1.svg';
 import { ReactComponent as CartIcon } from './icons/cart.svg';
+import Axios from 'axios'
 import './style/header.css';
 
 const Header = ({ loggedIn, }) => {
@@ -22,19 +23,19 @@ const Header = ({ loggedIn, }) => {
     setSearchQuery('');
   };
 
-  const handleLogin = () => {
-    // Redirect to login page
-    window.location.href = "/";
-  }
-  
-  const handleSignout = () => {
-    fetch("/logout", { credentials: "include" })
-      .then(() => {
-        // Clear session cookie and redirect to homepage
-        document.cookie = 'userId=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        // window.location.href = "/";
-      })
-  }
+  const handleLogout = () => {
+    Axios.post("http://localhost:3001/logout", {
+      method: 'POST',
+      credentials: 'include'
+    }).then(res => {
+      if (res.ok) {
+        // do something after the user logs out successfully
+        console.log('User logged out successfully');
+      }
+    })
+      .catch(error => console.error('Error logging out:', error));
+  };
+
 
   return (
     <nav className="navbar">
@@ -57,7 +58,7 @@ const Header = ({ loggedIn, }) => {
             <li>
               <form onSubmit={handleSearch}>
                 <div className="search-box">
-                  <SearchIcon className="search-icon"/>
+                  <SearchIcon className="search-icon" />
                   <input
                     type="text"
                     value={searchQuery}
@@ -78,11 +79,15 @@ const Header = ({ loggedIn, }) => {
               </Link>
             </li>
             <li>
-            <Link to="/login">
-      <button className="nav-login-btn" >Login</button>
-      </Link>
-      <button className="nav-login-btn" onClick={handleSignout}>Signout</button>
-    </li>
+              <Link to="/login">
+                <button className="nav-login-btn" >Login</button>
+              </Link>
+            </li>
+            <li>
+              <button className="nav-login-btn" onClick={handleLogout}>
+                Sign out
+              </button>
+            </li>
           </ul>
         </div>
       </div>
