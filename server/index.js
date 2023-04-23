@@ -1,7 +1,5 @@
 const express = require("express");
-const mysql = require("mysql2");
 const cors = require("cors");
-
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -10,6 +8,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const app = express();
+
+const db = require("./db");
 
 app.use(express.json());
 app.use(
@@ -34,31 +34,46 @@ app.use(
   })
 );
 
-const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "password",
-  database: "loginsystem",
-});
 
 app.post("/register", (req, res) => {
   const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
+  const repeatPassword = req.body.repeatPassword;
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       console.log(err);
     }
 
-    db.query(
-      "INSERT INTO users (username, password) VALUES (?,?)",
-      [username, hash],
-      (err, result) => {
-        console.log(err);
-      }
-    );
+
+      // Check if username already exists in the database
+      db.query("SELECT * FROM users WHERE username = ?", username, (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("Internal server error");
+        }
+
+        if (result.length > 0) {
+          return res.status(400).send("Username already exists");
+        }
+
+        db.query(
+          "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+          [username, email, hash],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+              return res.status(500).send("Internal server error");
+            }
+
+            return res.status(200).send("User registered successfully");
+          }
+        );
+      });
   });
 });
+
 
 app.get("/login", (req, res) => {
   if (req.session.user) {
@@ -95,6 +110,16 @@ app.post("/login", (req, res) => {
       }
     }
   );
+});
+
+app.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.clearCookie("userId");
+    res.send({ message: "Logged out successfully" });
+  });
 });
 
 app.listen(3001, () => {

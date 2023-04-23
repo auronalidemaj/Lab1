@@ -8,7 +8,7 @@ import { ReactComponent as WishlistIcon } from './icons/wishlist-1.svg';
 import { ReactComponent as CartIcon } from './icons/cart.svg';
 import './style/header.css';
 
-const Header = () => {
+const Header = ({ loggedIn, }) => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -21,6 +21,20 @@ const Header = () => {
     console.log(`Perform search action with query: ${searchQuery}`);
     setSearchQuery('');
   };
+
+  const handleLogin = () => {
+    // Redirect to login page
+    window.location.href = "/";
+  }
+  
+  const handleSignout = () => {
+    fetch("/logout", { credentials: "include" })
+      .then(() => {
+        // Clear session cookie and redirect to homepage
+        document.cookie = 'userId=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        // window.location.href = "/";
+      })
+  }
 
   return (
     <nav className="navbar">
@@ -64,10 +78,11 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/login">
-                <button className="nav-login-btn">Login</button>
-              </Link>
-            </li>
+            <Link to="/login">
+      <button className="nav-login-btn" >Login</button>
+      </Link>
+      <button className="nav-login-btn" onClick={handleSignout}>Signout</button>
+    </li>
           </ul>
         </div>
       </div>
