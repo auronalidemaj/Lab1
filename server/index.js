@@ -112,6 +112,80 @@ app.post("/login", (req, res) => {
   );
 });
 
+
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM users", (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal server error");
+    }
+    return res.status(200).send(result);
+  });
+});
+
+
+app.get("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  db.query("SELECT * FROM users WHERE id = ?", userId, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal server error");
+    }
+    return res.status(200).send(result);
+  });
+});
+
+app.post("/users", (req, res) => {
+  const { username, email, password } = req.body;
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal server error");
+    }
+    db.query(
+      "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+      [username, email, hash],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("Internal server error");
+        }
+        return res.status(200).send("User added successfully");
+      }
+    );
+  });
+});
+
+
+app.put("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const { username, email } = req.body;
+  db.query(
+    "UPDATE users SET username = ?, email = ? WHERE id = ?",
+    [username, email, userId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+      return res.status(200).send("User updated successfully");
+    }
+  );
+});
+
+
+app.delete("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  db.query("DELETE FROM users WHERE id = ?", userId, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal server error");
+    }
+    return res.status(200).send("User deleted successfully");
+  });
+});
+
+
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -125,3 +199,4 @@ app.post("/logout", (req, res) => {
 app.listen(3001, () => {
   console.log("running server");
 });
+

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { ReactComponent as Hamburger } from './icons/menu.svg';
 import { ReactComponent as Brand } from './icons/logo4.svg';
@@ -8,6 +8,7 @@ import { ReactComponent as WishlistIcon } from './icons/wishlist-1.svg';
 import { ReactComponent as CartIcon } from './icons/cart.svg';
 import Axios from 'axios'
 import './style/header.css';
+
 
 const Header = ({ loggedIn, }) => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -35,6 +36,20 @@ const Header = ({ loggedIn, }) => {
     })
       .catch(error => console.error('Error logging out:', error));
   };
+
+  const [role, setRole] = useState('')
+  const [logged, setLogged] = useState(false)
+  
+  Axios.defaults.withCredentials = true;
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").then((response) => {
+      if (Boolean(response.data.loggedIn)) {
+        setRole(response.data.user[0].role);
+        setLogged(true);
+      }
+    });
+  }, []);
+  
 
 
   return (
@@ -78,16 +93,19 @@ const Header = ({ loggedIn, }) => {
                 <WishlistIcon className="wishlist-icon" />
               </Link>
             </li>
+
             <li>
-              <Link to="/login">
-                <button className="nav-login-btn" >Login</button>
-              </Link>
-            </li>
-            <li>
-              <button className="nav-login-btn" onClick={handleLogout}>
+            {logged == true ?<button className="nav-login-btn" onClick={handleLogout}>
                 Sign out
-              </button>
+              </button> : <Link to="/login">
+                <button className="nav-login-btn" >Login</button>
+              </Link>}
+              
             </li>
+            <li>
+  {role === 'admin' ? <NavLink to="/dashboard">Dashboard</NavLink> : null}
+</li>
+
           </ul>
         </div>
       </div>
