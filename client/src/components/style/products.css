@@ -1,0 +1,124 @@
+.product-form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  h1{
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .product-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .product-form input,
+  .product-form select {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 90%;
+  }
+  
+  .product-form textarea {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: vertical;
+    min-height: 100px;
+    max-height: 100px;
+    width: 90%;
+  }
+  .product-form input[type="file"] {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .product-form button{
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #0077cc;
+    color: black;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .product-form button:hover {
+    background-color: #005fa3;
+  }
+  
+
+  /* Book List */
+.book-list {
+    margin-top: 20px;
+    
+  }
+  
+  .book-list h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .book-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .book-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .book-list li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .book-list li p {
+    margin: 0;
+  }
+  
+  .book-list li button {
+    margin-left: auto;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .book-list li button:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 767px) {
+    .book-list li {
+      flex-direction: column;
+    }
+    
+    .book-list li button {
+      margin-top: 10px;
+      margin-left: 0;
+    }
+  }
+  
