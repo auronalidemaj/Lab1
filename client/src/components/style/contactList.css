@@ -1,0 +1,86 @@
+h1{
+    text-align: center;
+    color:#2f234f;
+}
+
+.contacts {
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+  
+  .contacts h1 {
+    font-size: 36px;
+    color: #2f234f;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .contacts-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .contact-card {
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: 330px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .contact-name {
+    font-size: 24px;
+    color: #2f234f;
+    margin-bottom: 10px;
+  }
+  
+  .contact-email,
+  .contact-message {
+    font-size: 16px;
+    color: #2f234f;
+    margin-bottom: 10px;
+  }
+  
+  .contact-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .delete-button,
+  .edit-button {
+    padding: 10px 20px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  .delete-button {
+    background-color: #ff6347;
+  }
+  
+  .edit-button {
+    background-color: #2f234f;
+  }
+  
+
+  .edit-button:hover {
+    background-color: #6940a7;
+    transition: 0.6s;
+  }
+  .delete-button:hover {
+    background-color: #ff8c82;
+    transition: 0.6s;
+  }
+  

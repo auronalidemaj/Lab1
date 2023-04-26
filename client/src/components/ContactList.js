@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import "./style/contactList.css";
 
 function ContactList() {
   const [contacts, setContacts] = useState([]);
@@ -25,22 +26,30 @@ function ContactList() {
   };
 
   return (
-            <div>
-            <h1>Contact List</h1>
-            <ul>
-            {contacts.map((contact) => (
-        <li key={contact.id}>
-            <p>Name: {contact.name}</p>
-            <p>Email: {contact.email}</p>
-            <p>Message: {contact.message}</p>
-            <button onClick={() => handleDelete(contact.id)}>Delete</button>
-            <button>
-            <Link to={`/contacts/${contact.id}/edit`}>Edit</Link>
-            </button>
-        </li>
+    <>      <h1>Contact List</h1>
+    <div className="contacts">
+      <ul className="contacts-list">
+        {contacts.map((contact) => (
+          <li key={contact.id} className="contact-card">
+            <p className="contact-name">Name: <br/>{contact.name}</p>
+            <p className="contact-email">Email: <br/>{contact.email}</p>
+            <p className="contact-message">Message: <br/>{contact.message}</p>
+            <div className="contact-buttons">
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(contact.id)}
+              >
+                Delete
+              </button>
+              <button className="edit-button">
+                <Link to={`/contacts/${contact.id}/edit`}>Edit</Link>
+              </button>
+            </div>
+          </li>
         ))}
       </ul>
     </div>
+    </>
   );
 }
 

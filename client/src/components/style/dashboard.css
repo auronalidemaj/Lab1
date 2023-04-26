@@ -1,0 +1,49 @@
+.dash{
+    display: flex;
+}
+.leftD{
+    height: 1000px;
+    width: 300px;
+    background-color: #f5f5f5;
+    border: 1px solid #2f2f2f
+    
+}
+h2 {
+    color: #2f234f;
+    font-size: 24px;
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+.lists {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dashButton {
+    background-color: #2f234f;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .dashButton:focus,
+  .dashButton:hover {
+    background-color: #3c2d6e;
+  }
+  
+  .dashButton.active {
+    border-bottom: 2px solid #2f234f;
+    color: lightslategray;
+    transition: border-bottom 0.3s ease-in-out;
+  }
+  
