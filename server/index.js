@@ -15,10 +15,11 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -194,6 +195,90 @@ app.post("/logout", (req, res) => {
     res.clearCookie("userId");
     res.send({ message: "Logged out successfully" });
   });
+});
+
+//contact CRUD
+
+app.post('/contact', (req, res) => {
+  const { name, email, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(400).send('Please fill out all fields');
+  }
+
+  db.query(
+    'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
+    [name, email, message],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      return res.status(200).send('Contact message saved successfully');
+    }
+  );
+});
+
+app.get('/contacts', (req, res) => {
+  db.query('SELECT * FROM contacts', (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send('Internal server error');
+    }
+
+    return res.status(200).send(result);
+  });
+});
+//update
+app.put('/contacts/:id', (req, res) => {
+  const id = req.params.id;
+  const { name, email, message } = req.body;
+
+ 
+  if (!name || !email || !message) {
+    return res.status(400).send('Please fill out all fields');
+  }
+
+
+  db.query(
+    'UPDATE contacts SET name = ?, email = ?, message = ? WHERE id = ?',
+    [name, email, message, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).send('Contact message not found');
+      }
+
+      return res.status(200).send('Contact message updated successfully');
+    }
+  );
+});
+
+// Delete 
+app.delete('/contacts/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query(
+    'DELETE FROM contacts WHERE id = ?',
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).send('Contact message not found');
+      }
+
+      return res.status(200).send('Contact message deleted successfully');
+    }
+  );
 });
 
 app.listen(3001, () => {
