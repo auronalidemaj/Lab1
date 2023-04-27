@@ -4,6 +4,7 @@ import axios from 'axios';
 import './style/contact.css';
 
 function EditContact() {
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [contact, setContact] = useState({});

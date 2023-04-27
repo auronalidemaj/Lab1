@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./style/products.css"
-import { Link } from 'react-router-dom';
-
+import "./style/products.css";
 
 const BookForm = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +9,7 @@ const BookForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [numBooks, setNumBooks] = useState(0);
-  // const [image, setImage] = useState(null);
+  const [imageSrc, setImageSrc] = useState("");
 
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
@@ -21,27 +19,33 @@ const BookForm = () => {
   const handleNumBooksChange = (event) => setNumBooks(parseInt(event.target.value));
   const [error, setError] = useState("");
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
 
-//   const [imagePreview, setImagePreview] = useState(null);
+    reader.onloadend = () => {
+      const imageSource = reader.result;
+      setImageSrc(imageSource);
+    };
 
-  // const handleImageChange = (event) => {
-  //   const selectedImage = event.target.files[0];
-  //   setImage(selectedImage);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
-//     const reader = new FileReader();
-//     reader.onload = () => setImagePreview(reader.result);
-//     reader.readAsDataURL(selectedImage);
-//   };
-const handleSubmit = (event) => {
-    axios.post("http://localhost:3001/books", {
-        // image: image,
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:3001/books", {
+        image: imageSrc, // Pass the image source to the server
         title: title,
         category: category,
         author: author,
         description: description,
         price: price,
-        numBooks: numBooks
-      }).then((response) => {
+        numBooks: numBooks,
+      })
+      .then((response) => {
         console.log(response);
         setTitle("");
         setAuthor("");
@@ -49,30 +53,27 @@ const handleSubmit = (event) => {
         setDescription("");
         setPrice(0);
         setNumBooks(0);
-        // setImage(null);
+        setImageSrc("");
         setError("");
-        alert("Book added successfully!"); // Add this line to display a success message
-      }).catch((error) => {
+        alert("Book added successfully!");
+      })
+      .catch((error) => {
         console.error(error);
-        alert("Error occurred while adding book."); // Add this line to display an error message
+        alert("Error occurred while adding the book.");
       });
-};
-
-
+  };
 
   return (
     <div>
-    <h1>Add books:</h1>
-    <div className="product-form">
-    <form onSubmit={handleSubmit}>
-    {/* {imagePreview && (
-  <img src={imagePreview} alt="Selected" style={{ height: "300px", width: "auto" }} />)} */}
-        {/* <label>
-        Image:
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-      </label> */}
-      <br />
-      <label>
+      <h1>Add books:</h1>
+      <div className="product-form">
+        <form onSubmit={handleSubmit}>
+          <label>
+            Image:
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+          </label>
+          <br />
+          <label>
         Title:
         <input type="text" value={title} onChange={handleTitleChange} />
       </label>
@@ -106,14 +107,11 @@ const handleSubmit = (event) => {
         Number of books available:
         <input type="number" min="0" value={numBooks.toString()} onChange={handleNumBooksChange} />
       </label>
-      <br />
-      <button type="submit">Add Book</button>
-      <button ><Link to="/edit">Edit</Link></button>
-
-
-      {error && <p className="error">{error}</p>}
-    </form>
-    </div>
+          <br />
+          <button type="submit">Add Book</button>
+          {error && <p className="error">{error}</p>}
+        </form>
+      </div>
     </div>
   );
 };

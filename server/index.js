@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const mysql = require('mysql');
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -15,14 +16,11 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-<<<<<<< HEAD
     methods: ["GET", "POST","PUT","DELETE"],
-=======
-    methods: ["GET", "POST", "PUT", "DELETE"],
->>>>>>> 068b6426850c4212dfb82ba4d02d3015ad1f5b1c
     credentials: true,
   })
 );
+
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -203,34 +201,35 @@ app.post("/logout", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 
+//Products CRUD
 
-app.post("/books", (req, res) => {
-  const {title, category, author, description, price, numBooks } = req.body;
-  // const image = req.file.buffer;
+app.post("/books",  (req, res) => {
+  try {
+    const { title, category, author, description, price, numBooks, image } = req.body;
+
      db.query(
-      "INSERT INTO books (title, category, author, description, price, numBooks) VALUES ( ?,?,?,?,?,?)",
-      [ title, category, author, description, price, numBooks],(err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("Internal server error");
-      }
-      return res.status(200).send("User added successfully");
-     
-    });
-  });
+      "INSERT INTO books (image, title, category, author, description, price, numBooks) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [image, title, category, author, description, price, numBooks]
+    );
+    return res.status(200).send("Book added successfully");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error");
+  }
+});
+
 
   app.put("/books/:id", (req, res) => {
     const bookId = req.params.id;
-    const {title, category, author, description, price, numBooks } = req.body;
+    const {image, title, category, author, description, price, numBooks } = req.body;
   
-    if (!title || !category || !author || !description || !price || !numBooks) {
+    if (!image || !title || !category || !author || !description || !price || !numBooks) {
       return res.status(400).send("Missing required fields");
     }
     db.query(
-      "UPDATE books SET title=?, category=?, author=?, description=?, price=?, numBooks=? WHERE id=?",
-      [title, category, author, description, price, numBooks, bookId],
+      "UPDATE books SET image=?, title=?, category=?, author=?, description=?, price=?, numBooks=? WHERE id=?",
+      [image, title, category, author, description, price, numBooks, bookId],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -244,34 +243,6 @@ app.post("/books", (req, res) => {
     );
   });
   
-  
-
-  
-// const multer = require("multer");
-// const upload = multer({ dest: "uploads/" });
-
-// app.post("/books", upload.single("image"), (req, res) => {
-//   const {title, category, author, description, price, numBooks } = req.body;
-//   if (!req.file || !req.file.buffer) {
-//     return res.status(400).send("Image is required");
-//   }
-//   if (!req.file.mimetype.startsWith("image/")) {
-//     return res.status(400).send("File must be an image");
-//   }
-//   const image = req.file.buffer;
-//   db.query(
-//     "INSERT INTO books (image,title, category, author, description, price, numBooks) VALUES ( ?,?,?, ?,?, ?, ?)",
-//     [ image, title, category, author, description, price, numBooks],
-//     (err, result) => {
-//       if (err) {
-//         console.log(err);
-//         return res.status(500).send("Internal server error");
-//       }
-//       return res.status(200).send("Book added successfully");
-//     }
-//   );
-// });
-
 
   app.get("/books", (req, res) => {
     db.query("SELECT * FROM books", (err, result) => {
@@ -283,12 +254,20 @@ app.post("/books", (req, res) => {
     });
   });
 
-  app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+  app.get("/books/:id", (req, res) => {
+    const bookId = req.params.id;
+    db.query("SELECT * FROM books WHERE id = ?", [bookId], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+      if (result.length === 0) {
+        return res.status(404).send("Book not found");
+      }
+      return res.status(200).json(result[0]);
+    });
   });
+  
 
   app.delete("/books/:id", (req, res) => {
     const booksId = req.params.id;
@@ -304,7 +283,6 @@ app.post("/books", (req, res) => {
 
 
 
-=======
 //contact CRUD
 
 app.post('/contact', (req, res) => {
@@ -388,7 +366,6 @@ app.delete('/contacts/:id', (req, res) => {
     }
   );
 });
->>>>>>> 068b6426850c4212dfb82ba4d02d3015ad1f5b1c
 
 app.listen(3001, () => {
   console.log("running server");
