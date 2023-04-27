@@ -5,6 +5,7 @@ import twitter from './icons/twitter.png'
 import instagram from './icons/instagram.png'
 import linkedin from './icons/linkedin.png'
 
+
 function Footer() {
   return (
     <>

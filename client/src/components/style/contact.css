@@ -1,0 +1,43 @@
+
+.mp-contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.mp-contact-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.mp-contact-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.mp-contact-container input,
+.mp-contact-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+.mp-contact-container button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mp-contact-container button[type="submit"]:hover {
+  background-color: #0069d9;
+}
+
+.mp-contact-container .error {
+  color: red;
+  margin-top: 10px;
+}
