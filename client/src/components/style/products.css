@@ -90,6 +90,16 @@
   flex: 1;
 }
 
+.categories ul{
+  list-style: none;
+  cursor: pointer;
+}
+
+.authors ul {
+  list-style: none;
+  cursor: pointer;
+}
+
 .categories-authors-container {
   display: flex;
   flex-direction: column;
