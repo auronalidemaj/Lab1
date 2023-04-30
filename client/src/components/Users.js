@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import './style/users.css'
-
-function UserList() {
+function Users() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -12,9 +12,26 @@ function UserList() {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:3001/users/${id}`)
+      .then((res) => {
+        console.log(res);
+        setUsers((prevUsers) =>
+          prevUsers.filter((user) => user.id !== id)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+  
+
   return (
     <div className="users">
-      <h1>User List</h1>
+
+      <div className="headers">
+        <h1>User List</h1>      
+        <Link to="/CreateUser"><button className="a">Create User</button></Link>
+      </div>
       <ul className="user-list">
         {users.map((user) => (
           <li key={user.id} className="user-card">
@@ -22,8 +39,7 @@ function UserList() {
             <p className="user-email"> Email: <br></br>{user.email}</p>
             <div className="button-group">
               <button>Edit</button>
-              <button>Delete</button>
-              <button>Role</button>
+              <button className="delete" onClick={() => handleDelete(user.id)}>Delete</button>
             </div>
           </li>
         ))}
@@ -32,4 +48,4 @@ function UserList() {
   );
 }
 
-export default UserList;
+export default Users;

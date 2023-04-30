@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import ContactList from './components/ContactList';
 import EditContact from './components/EditContact';
+import CreateUser from './components/CreateUser';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
@@ -32,6 +33,7 @@ function App() {
       <Route path="products" element={<Products />} />
       <Route path="/ProductDetails/:id" element={<ProductDetails />} />
       <Route path="/BookForm" element={<BookForm />} />
+      <Route path="/CreateUser" element={<CreateUser />} />
       <Route path="/EditBookForm/:id" element={<EditBookForm />} />
       <Route path="dashboard" element={<Dashboard/>}/>
       <Route path="contact" element={<Contact/>}/>

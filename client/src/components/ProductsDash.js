@@ -29,9 +29,10 @@ function ProductsDash() {
   return (
 
     <div>
-        <button ><Link to="/BookForm">Add new book</Link></button>
-        <div>
+        <div className="mainTop">
       <h1 className="book-list-header">Book List</h1>
+      <Link to="/BookForm"><button className="a">Add new book</button></Link>
+      </div>
 <ul className="book-list">
   {books.length > 0 && books.map((book) => (
     <li key={book.id} className="book-item">
@@ -44,7 +45,6 @@ function ProductsDash() {
     </li>
   ))}
 </ul>
-    </div>
     </div>
   )
 }

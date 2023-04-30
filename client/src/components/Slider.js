@@ -84,10 +84,10 @@ const Slider = () => {
     <>
     <div style={slideStyle}>
       <button onClick={handlePrevClick} style={{ ...prevButton}}>
-      <b>Previous</b>
+      <b></b>
       </button>
       <button onClick={handleNextClick} style={{ ...nextButton}}>
-        <b>Next</b>
+        <b></b>
       </button>
     </div>
   </>
