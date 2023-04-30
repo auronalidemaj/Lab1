@@ -6,7 +6,7 @@ function LatestProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/products")
+    axios.get("http://localhost:3001/books")
       .then(response => setProducts(response.data))
       .catch(error => console.log(error));
   }, []);
@@ -22,7 +22,7 @@ function LatestProducts() {
       <div className='latest-products-container'>
         {latestProducts.map(product => (
           <div key={product.id}>
-            <img src={product.imageURL} alt={product.title} />
+            <img src={product.image} alt={product.title} />
             <h2>Title: {product.title}</h2>
             <h3>Author: {product.author}</h3>
             <h4>Category: {product.category}</h4>

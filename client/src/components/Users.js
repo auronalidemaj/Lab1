@@ -37,8 +37,9 @@ function Users() {
           <li key={user.id} className="user-card">
             <p className="user-name">Username: <br></br>{user.username}</p>
             <p className="user-email"> Email: <br></br>{user.email}</p>
+            <p className="user-role"> Role: <br></br>{user.role}</p>
             <div className="button-group">
-              <button>Edit</button>
+              <Link to={`/EditUser/${user.id}`}><button className="edit">Edit</button></Link>
               <button className="delete" onClick={() => handleDelete(user.id)}>Delete</button>
             </div>
           </li>

@@ -200,10 +200,10 @@ app.post("/users", (req, res) => {
 
 app.put("/users/:id", (req, res) => {
   const userId = req.params.id;
-  const { username, email } = req.body;
+  const {username, email, role } = req.body;
   db.query(
-    "UPDATE users SET username = ?, email = ? WHERE id = ?",
-    [username, email, userId],
+    "UPDATE users SET username = ?, email = ?, role = ? WHERE id = ?",
+    [username, email, role, userId],
     (err, result) => {
       if (err) {
         console.log(err);
