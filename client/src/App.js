@@ -4,14 +4,10 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import NewsList from './components/NewsList';
 import ContactList from './components/ContactList';
-<<<<<<< HEAD
 import EditNews from './components/EditNews';
 import CreateNews from './components/CreateNews';
-=======
-import EditContact from './components/EditContact';
 import CreateUser from './components/CreateUser';
 import EditUser from "./components/EditUser";
->>>>>>> 760a60bb4527fbce0f5f7bee9327380a874e08f0
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import News from "./pages/News";
@@ -20,14 +16,11 @@ import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard'
-// <<<<<<< HEAD
 import EditBookForm from './components/EditBookForm';
-// =======
-
 import BookForm from './components/BookForm';
 
 
-// >>>>>>> 068b6426850c4212dfb82ba4d02d3015ad1f5b1c
+
 
 
 

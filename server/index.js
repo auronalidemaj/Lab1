@@ -389,7 +389,7 @@ app.delete('/contacts/:id', (req, res) => {
   );
 });
 
-<<<<<<< HEAD
+
 //multer
 const uploadDir = path.join(__dirname, "public", "uploads");
 app.use(express.static(path.join(__dirname, "public")));
@@ -521,8 +521,7 @@ const imageFilename = results[0].image_filename;
 }
 });
 });
-=======
->>>>>>> 760a60bb4527fbce0f5f7bee9327380a874e08f0
+
 
 app.listen(3001, () => {
   console.log("running server");

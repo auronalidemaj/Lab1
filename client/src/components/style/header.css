@@ -24,8 +24,6 @@ body {
   position: relative;
   z-index: 9999;
 }
-.nav-elements {
-}
 .nav-elements ul {
   display: flex;
   justify-content: space-between;

@@ -18,7 +18,7 @@ function LatestProducts() {
   return (
     <div>
       <div className='text-center'>
-<<<<<<< HEAD
+
   <h1>Our Latest Products</h1>
 </div>
 <div className='latest-products-container'>
@@ -32,22 +32,7 @@ function LatestProducts() {
         <button>
           <Link to={`/ProductDetails/${product.id}`}>Details</Link>
         </button>
-=======
-        <h1>Our Latest Products</h1>
-      </div>
-      <div className='latest-products-container'>
-        {latestProducts.map(product => (
-          <div key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <h2>Title: {product.title}</h2>
-            <h3>Author: {product.author}</h3>
-            <h4>Category: {product.category}</h4>
-            <p>Description: {product.description}</p>
-            <p>Price: {product.price}</p>
-            <p>Created at: {product.created_at}</p>
-          </div>
-        ))}
->>>>>>> 760a60bb4527fbce0f5f7bee9327380a874e08f0
+        
       </div>
     </div>
   ))}
