@@ -80,6 +80,44 @@ app.post("/register", (req, res) => {
   });
 });
 
+app.post("/createUserDash", (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const password = req.body.password;
+  const role = req.body.role;
+
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      console.log(err);
+    }
+
+    // Check if username already exists in the database
+    db.query("SELECT * FROM users WHERE username = ?", username, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+
+      if (result.length > 0) {
+        return res.status(400).send("Username already exists");
+      }
+
+      db.query(
+        "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
+        [username, email, hash, role],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).send("Internal server error");
+          }
+
+          return res.status(200).send("Created user successfully");
+        }
+      );
+    });
+  });
+});
+
 
 app.get("/login", (req, res) => {
   if (req.session.user) {
@@ -165,16 +203,17 @@ app.post("/users", (req, res) => {
 
 app.put("/users/:id", (req, res) => {
   const userId = req.params.id;
-  const { username, email } = req.body;
+  const {username, email, role } = req.body;
   db.query(
-    "UPDATE users SET username = ?, email = ? WHERE id = ?",
-    [username, email, userId],
+    "UPDATE users SET username = ?, email = ?, role = ? WHERE id = ?",
+    [username, email, role, userId],
     (err, result) => {
       if (err) {
         console.log(err);
         return res.status(500).send("Internal server error");
       }
       return res.status(200).send("User updated successfully");
+      
     }
   );
 });
@@ -182,16 +221,27 @@ app.put("/users/:id", (req, res) => {
 
 
 
-app.delete("/users/:id", (req, res) => {
-  const userId = req.params.id;
-  db.query("DELETE FROM users WHERE id = ?", userId, (err, result) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send("Internal server error");
+app.delete('/users/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query(
+    'DELETE FROM users WHERE id = ?',
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).send('User not found');
+      }
+
+      return res.status(200).send('User deleted successfully');
     }
-    return res.status(200).send("User deleted successfully");
-  });
+  );
 });
+
 
 
 app.post("/logout", (req, res) => {
@@ -339,6 +389,7 @@ app.delete('/contacts/:id', (req, res) => {
   );
 });
 
+<<<<<<< HEAD
 //multer
 const uploadDir = path.join(__dirname, "public", "uploads");
 app.use(express.static(path.join(__dirname, "public")));
@@ -470,6 +521,8 @@ const imageFilename = results[0].image_filename;
 }
 });
 });
+=======
+>>>>>>> 760a60bb4527fbce0f5f7bee9327380a874e08f0
 
 app.listen(3001, () => {
   console.log("running server");

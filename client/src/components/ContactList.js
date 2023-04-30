@@ -26,8 +26,9 @@ function ContactList() {
   };
 
   return (
-    <>      <h1>Contact List</h1>
+    <>      
     <div className="contacts">
+    <h1>Contact List</h1>
       <ul className="contacts-list">
         {contacts.map((contact) => (
           <li key={contact.id} className="contact-card">

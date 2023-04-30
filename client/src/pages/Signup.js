@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { NavLink, Link } from 'react-router-dom';
 import '../components/style/signup.css';
 
 function Signup() {
@@ -18,7 +19,7 @@ function Signup() {
   
     const validateUsername = (username) => {
       // Username validation regex
-      const usernameRegex = /^[a-zA-Z0-9]+$/;
+      const usernameRegex = /^[a-zA-Z0-9]{6,}$/;
       return usernameRegex.test(username);
     };
   
@@ -66,6 +67,7 @@ function Signup() {
         setPasswordReg("");
         setRepeatPasswordReg("");
         setError("");
+        alert("User created successfully.")
       });
     };
   
@@ -80,35 +82,36 @@ function Signup() {
         <div className="registration">
           <h1>Registration</h1>
   
-          <label>Username</label>
           <input
             type="text"
+            placeholder="username"
             onChange={(e) => setUsernameReg(e.target.value)}
             value={usernameReg}
             onKeyPress={handleKeyPress}
           />
-          <label>Email</label>
           <input
             type="email"
+            placeholder="email"
             onChange={(e) => setEmailReg(e.target.value)}
             value={emailReg}
             onKeyPress={handleKeyPress}
           />
-          <label>Password</label>
           <input
             type="password"
+            placeholder="password"
             onChange={(e) => setPasswordReg(e.target.value)}
             value={passwordReg}
             onKeyPress={handleKeyPress}
           />
-          <label>Repeat password:</label>
           <input
             type="password"
+            placeholder="repeat password"
             onChange={(e) => setRepeatPasswordReg(e.target.value)}
             value={repeatPasswordReg}
             onKeyPress={handleKeyPress}
           />
           <button onClick={handleRegister}>Register</button>
+          <p><NavLink to="/login">Already have an account? Login</NavLink></p>
           {error && <p className="error">{error}</p>}
         </div>
       </div>

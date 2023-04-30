@@ -1,6 +1,7 @@
 h1{
     text-align: center;
     color:#2f234f;
+    background-color: #f5f5f5;
 }
 
 .contacts {
@@ -9,7 +10,7 @@ h1{
   }
   
   .contacts h1 {
-    font-size: 36px;
+    font-size: 32px;
     color: #2f234f;
     text-align: center;
     margin-bottom: 20px;

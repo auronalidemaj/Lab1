@@ -51,18 +51,16 @@ function Login() {
   }, []);
 
   return (
-    <>
-    <div className="my-registratio">
+    <div className="my-registration">
       <div className="registration">
         <h1>Login</h1>
         <input type="text" placeholder="username" onChange={handleUsernameChange} onKeyPress={handleKeyPress} value={username}/>
         <input type="password" placeholder="password" onChange={handlePasswordChange} onKeyPress={handleKeyPress} value={password}/>
         <button onClick={login}>Login</button>
-        <p><NavLink to="/signup">Dont have an account? Signup now!</NavLink></p>
+        <p><NavLink to="/signup">Don't have an account? Signup now!</NavLink></p>
+        <div className="login-message">{loginStatus}</div>
       </div>
-      <h1>{loginStatus}</h1>
     </div>
-    </>
   )
 }
 

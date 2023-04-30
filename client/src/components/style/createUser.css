@@ -1,0 +1,64 @@
+
+.my-registration {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .registration {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 50%;
+  }
+  
+  .registration h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2f234f;
+    background-color: white;
+  }
+  
+  .registration input {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  .registration select {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    border: none;
+    font-size: 1rem;
+    
+    border: 1px solid gray;
+
+  }
+  
+  .registration button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: none;
+    background-color: #2f234f;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .registration {
+      max-width: 100%;
+    }
+  }
+  

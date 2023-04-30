@@ -4,8 +4,14 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import NewsList from './components/NewsList';
 import ContactList from './components/ContactList';
+<<<<<<< HEAD
 import EditNews from './components/EditNews';
 import CreateNews from './components/CreateNews';
+=======
+import EditContact from './components/EditContact';
+import CreateUser from './components/CreateUser';
+import EditUser from "./components/EditUser";
+>>>>>>> 760a60bb4527fbce0f5f7bee9327380a874e08f0
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import News from "./pages/News";
@@ -36,6 +42,8 @@ function App() {
       <Route path="products" element={<Products />} />
       <Route path="/ProductDetails/:id" element={<ProductDetails />} />
       <Route path="/BookForm" element={<BookForm />} />
+      <Route path="/CreateUser" element={<CreateUser />} />
+      <Route path="/EditUser/:id" element={<EditUser/>} />
       <Route path="/EditBookForm/:id" element={<EditBookForm />} />
       <Route path="dashboard" element={<Dashboard/>}/>
       <Route path="news" element={<News/>}/>
