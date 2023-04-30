@@ -2,10 +2,14 @@ import './App.css';
 import { Routes, Route } from "react-router-dom";
 import Header from './components/Header'
 import Footer from './components/Footer'
+import NewsList from './components/NewsList';
 import ContactList from './components/ContactList';
-import EditContact from './components/EditContact';
+import EditNews from './components/EditNews';
+import CreateNews from './components/CreateNews';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import News from "./pages/News";
+import Contact from "./pages/Contact";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Signup from './pages/Signup';
@@ -13,7 +17,7 @@ import Dashboard from './pages/Dashboard'
 // <<<<<<< HEAD
 import EditBookForm from './components/EditBookForm';
 // =======
-import Contact from './pages/Contact';
+
 import BookForm from './components/BookForm';
 
 
@@ -34,9 +38,12 @@ function App() {
       <Route path="/BookForm" element={<BookForm />} />
       <Route path="/EditBookForm/:id" element={<EditBookForm />} />
       <Route path="dashboard" element={<Dashboard/>}/>
+      <Route path="news" element={<News/>}/>
       <Route path="contact" element={<Contact/>}/>
+      <Route path="newsList" element={<NewsList/>}/>
       <Route path="contactList" element={<ContactList/>}/>
-      <Route path="/contacts/:id/edit" element={<EditContact/>}/>
+      <Route path="/news/:id/edit" element={<EditNews/>}/>
+      <Route path="/create-news" element={<CreateNews/>}/>
     </Routes>
     <Footer/>
     </>

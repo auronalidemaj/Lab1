@@ -32,7 +32,7 @@ const Contact = () => {
   
 
   return (
-    <div className="mp-contact-container">
+    <div className="contact-container">
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -67,7 +67,7 @@ const Contact = () => {
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Send</button>
         {error && <p className="error">{error}</p>}
       </form>
     </div>

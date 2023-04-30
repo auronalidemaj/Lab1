@@ -37,6 +37,9 @@ a{
     display: flex;
     flex-direction: row;
 }
+.socialmedia path{
+    fill:white;
+}
 .socialmedia img {
     width: 80%;
 }

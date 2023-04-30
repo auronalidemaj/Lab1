@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mysql = require('mysql');
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -280,9 +283,6 @@ app.post("/books",  (req, res) => {
     });
   });
 
-
-
-
 //contact CRUD
 
 app.post('/contact', (req, res) => {
@@ -316,34 +316,6 @@ app.get('/contacts', (req, res) => {
     return res.status(200).send(result);
   });
 });
-//update
-app.put('/contacts/:id', (req, res) => {
-  const id = req.params.id;
-  const { name, email, message } = req.body;
-
- 
-  if (!name || !email || !message) {
-    return res.status(400).send('Please fill out all fields');
-  }
-
-
-  db.query(
-    'UPDATE contacts SET name = ?, email = ?, message = ? WHERE id = ?',
-    [name, email, message, id],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send('Internal server error');
-      }
-
-      if (result.affectedRows === 0) {
-        return res.status(404).send('Contact message not found');
-      }
-
-      return res.status(200).send('Contact message updated successfully');
-    }
-  );
-});
 
 // Delete 
 app.delete('/contacts/:id', (req, res) => {
@@ -365,6 +337,138 @@ app.delete('/contacts/:id', (req, res) => {
       return res.status(200).send('Contact message deleted successfully');
     }
   );
+});
+
+//multer
+const uploadDir = path.join(__dirname, "public", "uploads");
+app.use(express.static(path.join(__dirname, "public")));
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const fileExtension = path.extname(file.originalname);
+    const fileName =
+      file.originalname.replace(fileExtension, "").toLowerCase().split(" ").join("-") +
+      "-" +
+      Date.now() +
+      fileExtension;
+    cb(null, fileName);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+//news
+
+app.get("/news", (req, res) => {
+  db.query("SELECT *, DATE_FORMAT(published_at, '%M %D, %Y at %h:%i %p') AS formatted_published_at FROM news", (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving news");
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+app.post("/news", upload.single("image"), (req, res) => {
+  const { title, author, content } = req.body;
+  const imageFilename = req.file ? req.file.filename : null;
+
+  const query =
+    "INSERT INTO news (title, author, content, image_filename) VALUES (?, ?, ?, ?)";
+  const values = [title, author, content, imageFilename];
+
+  db.query(query, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error creating news");
+    } else {
+      res.send("News created successfully");
+    }
+  });
+});
+
+app.get("/news/:id", (req, res) => {
+  const id = req.params.id;
+
+  db.query("SELECT *, DATE_FORMAT(published_at, '%M %D, %Y at %h:%i %p') AS formatted_published_at FROM news WHERE id = ?", [id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving news");
+    } else if (results.length === 0) {
+      res.status(404).send("News not found");
+    } else {
+      res.send(results[0]);
+    }
+  });
+});
+
+app.put("/news/:id", upload.single("image"), (req, res) => {
+  const id = req.params.id;
+  const { title, author, content } = req.body;
+  let imageFilename = null;
+
+  db.query("SELECT * FROM news WHERE id = ?", [id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error updating news");
+    } else if (results.length === 0) {
+      res.status(404).send("News not found");
+    } else {
+      if (req.file) {
+        imageFilename = req.file.filename;
+      } else {
+        imageFilename = results[0].image_filename;
+      }
+
+      const query =
+        "UPDATE news SET title = ?, author = ?, content = ?, image_filename = ? WHERE id = ?";
+      const values = [title, author, content, imageFilename, id];
+      db.query(query, values, (err, results) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error updating news");
+        } else {
+          res.send("News updated successfully");
+        }
+      });
+    }
+  });
+});
+
+app.delete("/news/:id", (req, res) => {
+const id = req.params.id;
+
+db.query("SELECT * FROM news WHERE id = ?", [id], (err, results) => {
+if (err) {
+console.error(err);
+res.status(500).send("Error deleting news");
+} else if (results.length === 0) {
+res.status(404).send("News not found");
+} else {
+const imageFilename = results[0].image_filename;
+
+
+  db.query("DELETE FROM news WHERE id = ?", [id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error deleting news");
+    } else {
+      if (imageFilename) {
+        const imagePath = path.join(uploadDir, imageFilename);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+      }
+      res.send("News deleted successfully");
+    }
+  });
+}
+});
 });
 
 app.listen(3001, () => {

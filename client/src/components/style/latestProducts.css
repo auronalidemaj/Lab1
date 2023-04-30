@@ -1,58 +1,81 @@
+.text-center {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 2rem 0;
+}
+
 .latest-products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 20px 0;
-  }
-  
-  .text-center {
-    text-align: center;
-  }
-  .latest-products-container > div {
-    width: 30%;
-    margin-bottom: 20px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .latest-products-container img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .latest-products-container h2 {
-    margin: 10px 0;
-    font-size: 1.2rem;
-  }
-  
-  .latest-products-container h3 {
-    margin: 10px 0;
-    font-size: 1rem;
-  }
-  
-  .latest-products-container h4 {
-    margin: 10px 0;
-    font-size: 0.8rem;
-    font-style: italic;
-  }
-  
-  .latest-products-container p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-  }
-  
-  @media (max-width: 768px) {
-    .latest-products-container > div {
-      width: 45%;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .latest-products-container > div {
-      width: 100%;
-    }
-  }
-  
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem;
+
+}
+
+.latest-product {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.latest-product:hover {
+  transform: translateY(-5px);
+}
+
+.latest-product img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.latest-product h2 {
+  font-size: 1.5rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.latest-product h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.latest-product h4 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.latest-product p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.button-booksi {
+  margin-top: auto;
+}
+
+.button-booksi button {
+  background-color:  #2f234f;;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button-booksi button:hover {
+  background-color:  #302452;;
+}
+
+.button-booksi a {
+  color: #fff;
+  text-decoration: none;
+}

@@ -41,9 +41,6 @@ function ContactList() {
               >
                 Delete
               </button>
-              <button className="edit-button">
-                <Link to={`/contacts/${contact.id}/edit`}>Edit</Link>
-              </button>
             </div>
           </li>
         ))}

@@ -1,0 +1,51 @@
+.newsList {
+    margin: 20px;
+  }
+  
+  .newsList h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .newsList table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .newsList th,
+  .newsList td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .newsList th {
+    background-color: #f2f2f2;
+  }
+  
+  .newsList td img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .newsList .edit-button {
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .newsList .edit-button:hover {
+    background-color: #ddd;
+  }
+  
+  .newsList button {
+    background-color: #f44336;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.
+  }  

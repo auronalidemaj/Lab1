@@ -1,0 +1,53 @@
+.create-news-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.create-news-container h1 {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.create-news-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-news-container label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.create-news-container input,
+.create-news-container textarea {
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.create-news-container textarea {
+  height: 200px;
+}
+
+.create-news-container button {
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2f234f;;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.create-news-container button:hover {
+  background-color: #362a56;;
+}
