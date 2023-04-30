@@ -19,7 +19,7 @@ function Signup() {
   
     const validateUsername = (username) => {
       // Username validation regex
-      const usernameRegex = /^[a-zA-Z0-9]+$/;
+      const usernameRegex = /^[a-zA-Z0-9]{6,}$/;
       return usernameRegex.test(username);
     };
   

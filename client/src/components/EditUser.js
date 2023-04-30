@@ -24,10 +24,19 @@ function EditUser() {
       .catch((err) => setErrorMsg(err.response.data));
   }, [id]);
   
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateUsername(username)) {
+      setErrorMsg("Please enter a valid username");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setErrorMsg("Please enter a valid email address");
+      return;
+    }
+
     const userData = {
       username: username,
       email: email,
@@ -45,44 +54,53 @@ function EditUser() {
     }
   };
 
-  return (
-<div className="my-registration create-news-container">
-  <div className="registration">
-    <h1>Edit User</h1>
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        defaultValue={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        defaultValue={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <label htmlFor="role">Role:</label>
-      <select
-        id="role"
-        defaultValue={role}
-        onChange={(e) => setRole(e.target.value)}
-      >
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-      </select>
-      <br />
-      <button type="submit">Update User</button>
-    </form>
-    {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
-    {successMsg && <p style={{ color: "green" }}>{successMsg}</p>}
-  </div>
-</div>
+  const validateUsername = (username) => {
+    const regex = /^[a-zA-Z0-9]{6,}$/;
+    return regex.test(username);
+  };
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  return (
+    <div className="my-registration create-news-container">
+      <div className="registration">
+        <h1>Edit User</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            defaultValue={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <br />
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            defaultValue={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+          <label htmlFor="role">Role:</label>
+          <select
+            id="role"
+            defaultValue={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+          <br />
+          <button type="submit">Update User</button>
+        </form>
+        {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+        {successMsg && <p style={{ color: "green" }}>{successMsg}</p>}
+      </div>
+    </div>
   );
 }
 

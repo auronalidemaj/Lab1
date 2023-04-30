@@ -45,7 +45,7 @@ function CreateUser() {
   };
 
   const validateUsername = (username) => {
-    const regex = /^[a-zA-Z0-9]+$/;
+    const regex = /^[a-zA-Z0-9]{6,}$/;
     return regex.test(username);
   };
 
