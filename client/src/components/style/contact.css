@@ -5,6 +5,9 @@
   margin: 50px auto;
   max-width: 600px;
 }
+h1 {
+  font-size: 32px;
+}
 
 .contact-container h1 {
   text-align: center;

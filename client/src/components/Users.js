@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
-import './style/users.css'
+import { Link } from "react-router-dom";
+import "./style/users.css";
+
 function Users() {
   const [users, setUsers] = useState([]);
 
@@ -23,28 +24,45 @@ function Users() {
       })
       .catch((err) => console.log(err));
   };
-  
 
   return (
     <div className="users">
-
       <div className="headers">
-        <h1>User List</h1>      
-        <Link to="/CreateUser"><button className="a">Create User</button></Link>
+        <h1>User List</h1>
+        <Link to="/CreateUser">
+          <button className="create">Create User</button>
+        </Link>
       </div>
-      <ul className="user-list">
-        {users.map((user) => (
-          <li key={user.id} className="user-card">
-            <p className="user-name">Username: <br></br>{user.username}</p>
-            <p className="user-email"> Email: <br></br>{user.email}</p>
-            <p className="user-role"> Role: <br></br>{user.role}</p>
-            <div className="button-group">
-              <Link to={`/EditUser/${user.id}`}><button className="edit">Edit</button></Link>
-              <button className="delete" onClick={() => handleDelete(user.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit/Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>{user.role}</td>
+              <td>
+                <Link to={`/EditUser/${user.id}`}>
+                  <button className="edit">Edit</button>
+                </Link>
+                <button
+                  className="delete"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

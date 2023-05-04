@@ -41,7 +41,7 @@ function CreateUser() {
       console.log(response);
       navigate('/dashboard');
 
-    });
+    })
   };
 
   const validateUsername = (username) => {

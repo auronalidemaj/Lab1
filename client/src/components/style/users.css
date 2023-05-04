@@ -1,87 +1,73 @@
-.headers{ 
-  text-align: center;
-}
-
-h1{
-    text-align: center;
-    color:#2f234f;
-    font-size: 32 px;
-}
-html, body {
-    overflow-x: hidden;
-}
 .users {
-    background-color: #f5f5f5;
-    padding: 20px;
-    width: 100%;
-}
-  
-.user-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-  
-.user-card {
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-    border-radius: 5px;
-    padding: 20px;
-    margin: 10px;
-    width: 250px;
-    height: 300px;
+    margin: 50px auto;
+    max-width: 800px;
+  }
+  .headers {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-  
-.user-name,
-.contact-email {
-    font-size: 24px;
-    color: #2f234f;
-    margin-bottom: 5px;
-}
-  
-.button-group {
-    display: flex;
-    justify-content: space-between;
-}
-  
-button {
-    background-color: #2f234f;
-    color: #fff;
+  }
+  .create {
+    background: none;
     border: none;
-    border-radius: 3px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-  
-.a {
-    color:#2f234f;
+    color: #2f234f;
+    margin-bottom: 10px;
     font-size: 24px;
-    color: #fff;
-}
+    cursor: pointer;
+    transition: all 0.6s ease;
+  }
   
-.delete {
-    background-color: #ff6347;
-}
+  .create:hover {
 
+    color: #6940a7;
+    transition: 0.9s;
+  }
   
-button:hover {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  td:last-child {
+    text-align: center;
+  }
+  
+  .edit {
+    margin-right: 5px;
+    color: #fff;
+    background-color: #2f234f;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    
+  }
+  .edit:hover {
     background-color: #6940a7;
     transition: 0.6s;
-}
+  }
   
-.delete:hover {
+  .delete {
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .delete:hover {
     background-color: #ff8c82;
     transition: 0.6s;
-}
-
-.edit {
-    color: white;
-}
+  }
+  
