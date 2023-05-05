@@ -55,7 +55,7 @@ function ProductsDash() {
             )}
           </td>
           <td>
-            <Link to={`/EditBook/${book.id}`}>
+            <Link to={`/EditBookForm/${book.id}`}>
               <button className="edit">Edit</button>
             </Link>
             <button className="delete" onClick={() => handleDelete(book.id)}>

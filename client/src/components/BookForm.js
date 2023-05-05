@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./style/products.css";
+import "./style/bookform.css";
 
 const BookForm = () => {
   const [title, setTitle] = useState("");
@@ -64,20 +64,19 @@ const BookForm = () => {
   };
 
   return (
-    <div>
-      <h1>Add books:</h1>
-      <div className="product-form">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Image:
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-          </label>
-          <br />
-          <label>
+<div className="my-registration1">
+  <div className="registration1">
+    <h1>Add Book</h1>
+
+    <form onSubmit={handleSubmit}>
+      <label>
+        Image:
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+      </label>
+      <label>
         Title:
         <input type="text" value={title} onChange={handleTitleChange} />
       </label>
-      <br />
       <label>
         Category:
         <select value={category} onChange={handleCategoryChange}>
@@ -87,32 +86,28 @@ const BookForm = () => {
           <option value="children">Children's Books</option>
         </select>
       </label>
-      <br />
       <label>
         Author:
         <input type="text" value={author} onChange={handleAuthorChange} />
       </label>
-      <br />
       <label>
         Description:
         <textarea value={description} onChange={handleDescriptionChange} />
       </label>
-      <br />
       <label>
         Price:
         <input type="number" min="0" step="0.01" value={price.toString()} onChange={handlePriceChange} />
       </label>
-      <br />
       <label>
         Number of books available:
         <input type="number" min="0" value={numBooks.toString()} onChange={handleNumBooksChange} />
       </label>
-          <br />
-          <button type="submit">Add Book</button>
-          {error && <p className="error">{error}</p>}
-        </form>
-      </div>
-    </div>
+      <button type="submit">Add Book</button>
+      {error && <p className="error">{error}</p>}
+    </form>
+  </div>
+</div>
+
   );
 };
 
