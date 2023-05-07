@@ -54,7 +54,7 @@ const Header = ({ loggedIn, }) => {
 
   return (
     <nav className="navbar">
-      <div className="container">
+      <div className="nav-container">
         <div className="logo">
           <Brand />
           <p className="emri">Bookstore</p>
