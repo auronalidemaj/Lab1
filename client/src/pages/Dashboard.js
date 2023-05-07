@@ -3,7 +3,7 @@ import Users from '../components/Users';
 import Contact from '../components/ContactList';
 import '../components/style/dashboard.css';
 import ProductsDash from '../components/ProductsDash';
-
+import News from '../components/NewsList';
 function Dashboard() {
   const [activeButton, setActiveButton] = useState('users');
   const handleUsersClick = () => {
@@ -18,7 +18,9 @@ function Dashboard() {
   const handleProductClick = () => {
     setActiveButton('product');
   };
-
+  const handleNewsClick = () => {
+    setActiveButton('news');
+  };
   return (
     <>
       <div className="dash">
@@ -34,19 +36,29 @@ function Dashboard() {
                   Users
                 </button>
               </li>
+
+              <li>
+                <button
+                  className={`dashButton ${activeButton === 'news' ? 'active' : ''}`}
+                  onClick={handleNewsClick}>
+                  News
+                </button>
+              </li>
+
+              <li>
+                <button
+                  className={`dashButton ${activeButton === 'product' ? 'active' : ''}`}
+                  onClick={handleProductClick}>
+                  Products
+                </button>
+              </li>
+
               <li>
                 <button
                   className={`dashButton ${activeButton === 'contact' ? 'active' : ''}`}
                   onClick={handleContactClick}
                 >
                   Contact
-                </button>
-              </li>
-              <li>
-                <button
-                  className={`dashButton ${activeButton === 'product' ? 'active' : ''}`}
-                  onClick={handleProductClick}>
-                  Products
                 </button>
               </li>
             </ul>
@@ -56,7 +68,7 @@ function Dashboard() {
           {activeButton === 'users' && <Users />}
           {activeButton === 'contact' && <Contact />}
           {activeButton === 'product' && <ProductsDash />}
-
+          {activeButton === 'news' && <News />}
         </div>
       </div>
     </>

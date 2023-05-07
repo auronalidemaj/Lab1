@@ -1,52 +1,74 @@
-import React,{useState,useEffect} from 'react'
-import axios from "axios";
-import '../components/style/products.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './style/dashboard.css'
+import '../components/style/products.css';
 
 function ProductsDash() {
-
-    const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
     axios
       .get('http://localhost:3001/books')
       .then((res) => {
-        console.log(res.data)
-        setBooks(res.data)
+        console.log(res.data);
+        setBooks(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleDelete = async (id)=>{
-    try{
-      await axios.delete("http://localhost:3001/books/"+id)
-      window.location.reload()
-    }catch(err){
-      console.log(err)
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete('http://localhost:3001/books/' + id);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
     }
-  }
-  return (
+  };
 
-    <div>
-        <div className="mainTop">
-      <h1 className="book-list-header">Book List</h1>
-      <Link to="/BookForm"><button className="a">Add new book</button></Link>
-      </div>
-<ul className="book-list">
-  {books.length > 0 && books.map((book) => (
-    <li key={book.id} className="book-item">
-        {book.image && <img src={book.image} alt="" className='book-image' />}
-      <p className="book-title">Title: {book.title}</p>
-      <p className="book-price">Price: {book.price}</p>
-      <p className="book-stock">{book.numBooks} in stock</p>
-      <button className="bookForm-btn"><Link to={`/EditBookForm/${book.id}`}>Edit</Link></button>
-      <button onClick={()=> handleDelete(book.id)}>Delete</button>
-    </li>
-  ))}
-</ul>
-    </div>
-  )
+  return (
+    <div className="products">
+  <div className="headers">
+    <h1>Book List</h1>
+    <Link to="/BookForm">
+      <button className="create">Add New Book</button>
+    </Link>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Image</th>
+        <th>Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {books.map((book) => (
+        <tr key={book.id}>
+          <td>{book.title}</td>
+          <td>{book.price}</td>
+          <td>{book.numBooks} in stock</td>
+          <td>
+            {book.image && (
+              <img src={book.image} alt={book.title} className="book-image" />
+            )}
+          </td>
+          <td>
+            <Link to={`/EditBookForm/${book.id}`}>
+              <button className="edit">Edit</button>
+            </Link>
+            <button className="delete" onClick={() => handleDelete(book.id)}>
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+  );
 }
 
-export default ProductsDash
+export default ProductsDash;

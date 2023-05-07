@@ -25,7 +25,7 @@ function DashboardNews() {
 
   return (
     <div className="newsList">
-      <h1>Dashboard News</h1>
+      <h1>News</h1>
       <p><Link to="/create-news">Add a new article</Link></p>
 
       <table>

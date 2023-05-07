@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import "./style/products.css";
+import "./style/bookform.css";
 
 const EditBookForm = () => {
   const { id } = useParams(); // get the id from the URL
@@ -85,9 +85,10 @@ const EditBookForm = () => {
   };
 
   return (
-    <div>
+    <div className="my-registration1">
+
+      <div className="registration1">
       <h1>Edit Book:</h1>
-      <div className="product-form">
         <form onSubmit={handleSubmit}>
           <label>
             Image:

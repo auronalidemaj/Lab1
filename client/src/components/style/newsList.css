@@ -1,51 +1,82 @@
 .newsList {
-    margin: 20px;
-  }
-  
-  .newsList h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  .newsList table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .newsList th,
-  .newsList td {
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  .newsList th {
-    background-color: #f2f2f2;
-  }
-  
-  .newsList td img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-  }
-  
-  .newsList .edit-button {
-    background-color: #f2f2f2;
-    border: none;
-    padding: 10px;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .newsList .edit-button:hover {
-    background-color: #ddd;
-  }
-  
-  .newsList button {
-    background-color: #f44336;
-    border: none;
-    color: #fff;
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.
-  }  
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.newsList h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.newsList p {
+  margin-bottom: 20px;
+}
+
+.newsList table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.newsList th,
+.newsList td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+}
+
+.newsList th {
+  font-weight: bold;
+}
+
+.newsList tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.newsList tbody td:first-child {
+  font-weight: bold;
+}
+
+.newsList tbody td:last-child {
+  text-align: center;
+}
+
+.newsList .edit-button {
+  background-color: #2f234f;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.newsList .edit-button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.newsList button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.newsList .edit-button:hover {
+  background-color: #6940a7;
+}
+.newsList button:hover {
+  background-color: #ff8c82;
+  transition: 0.6s;
+}
+
+.newsList td img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}

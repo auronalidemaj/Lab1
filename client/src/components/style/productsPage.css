@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .sidebar {
+    width: 200px;
+    padding: 10px;
+  }
+  
+  .categories-authors-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .categories,
+  .authors {
+    margin-bottom: 20px;
+  }
+  
+  .categories h2,
+  .authors h2 {
+    margin-bottom: 10px;
+  }
+  
+  .categories ul li,
+  .authors ul li {
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  
+  .categories ul li:hover,
+  .authors ul li:hover {
+    text-decoration: underline;
+  }
+  
+  .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  .container .product-card {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    height: 300px;
+  }
+  
+  .product-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  
+  .product-details {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .product-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+.product-button {
+    margin-right: 5px;
+    color: #fff;
+    background-color: #2f234f;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .product-button:hover {
+    background-color: #6940a7;
+    transition: 0.6s;
+  }

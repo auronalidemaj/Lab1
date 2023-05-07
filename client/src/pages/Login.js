@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import '../components/style/signup.css';
 
 
