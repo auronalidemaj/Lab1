@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Slider from '../components/Slider'
 import LatestProducts from '../components/LatestProducts'
+import Contact from '../components/Contact'
+import News from '../pages/News'
+import index from '../components/style/index.css'
+
 
 import Axios from 'axios'
 function Home() {
@@ -16,9 +20,12 @@ function Home() {
   }, [])
   return (
     <>
+    <div className='home-container'>
     <Slider/>
     <LatestProducts/>
-
+    <News/>
+    <Contact/>
+    </div>
 
     </>
   )

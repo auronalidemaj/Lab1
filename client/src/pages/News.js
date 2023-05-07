@@ -38,14 +38,21 @@ function News() {
   };
 
   return (
+    <div>
+    <div className='n-text-center'>
+
+    <h1>Stay Up-to-Date</h1>
+    </div>
     <div className="news-container">
       {news.map((newsItem) => (
         <div key={newsItem.id} className="news-item">
           {newsItem.image_filename && (
-            <img
-              src={`http://localhost:3001/uploads/${newsItem.image_filename}`}
-              alt={newsItem.title}
-            />
+             <div className="image-container">
+             <img
+               src={`http://localhost:3001/uploads/${newsItem.image_filename}`}
+               alt={newsItem.title}
+             />
+           </div>
           )}
           <div className="news-item-content">
             <h2>{newsItem.title}</h2>
@@ -54,6 +61,7 @@ function News() {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 }

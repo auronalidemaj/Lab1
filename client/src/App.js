@@ -11,7 +11,7 @@ import EditUser from "./components/EditUser";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import News from "./pages/News";
-import Contact from "./pages/Contact";
+import Contact from "./components/Contact";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Signup from './pages/Signup';

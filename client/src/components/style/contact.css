@@ -1,7 +1,12 @@
+.c-body{
+  height: 560px;
+  background-color:#fef7e5;
+}
 .contact-container {
-  background-color: #f7f7f7;
+  background-color: #fff;
   padding: 50px;
   border-radius: 10px;
+  border: 1px solid #bcbcbc;
   margin: 50px auto;
   max-width: 600px;
 }
@@ -9,6 +14,7 @@
 .contact-container h1 {
   text-align: center;
   margin-bottom: 20px;
+  background-color: #fff;
 }
 
 .contact-container form {
@@ -20,6 +26,7 @@
 .contact-container label {
   font-size: 18px;
   font-weight: bold;
+  color:  #2f234f;
 }
 
 .contact-container input,

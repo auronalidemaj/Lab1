@@ -32,6 +32,7 @@ const Contact = () => {
   
 
   return (
+    <div className='c-body'>
     <div className="contact-container">
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
@@ -70,6 +71,7 @@ const Contact = () => {
         <button type="submit">Send</button>
         {error && <p className="error">{error}</p>}
       </form>
+    </div>
     </div>
   )
 }

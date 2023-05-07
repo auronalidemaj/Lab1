@@ -17,7 +17,7 @@ function LatestProducts() {
 
   return (
     <div>
-      <div className='text-center'>
+      <div className='lp-text-center'>
 
   <h1>Our Latest Products</h1>
 </div>
