@@ -18,6 +18,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard'
 import EditBookForm from './components/EditBookForm';
 import BookForm from './components/BookForm';
+import FullArticle from './pages/FullArticle';
 
 
 
@@ -45,6 +46,7 @@ function App() {
       <Route path="contactList" element={<ContactList/>}/>
       <Route path="/news/:id/edit" element={<EditNews/>}/>
       <Route path="/create-news" element={<CreateNews/>}/>
+      <Route path="/news/:id" element={<FullArticle/>} />
     </Routes>
     <Footer/>
     </>
