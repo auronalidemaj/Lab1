@@ -19,6 +19,22 @@ function FullArticle() {
       });
   }, [id]);
 
+  const renderContent = () => {
+    const regexBold = /\*([^*]+)\*/g;
+    const regexTitle = /#([^#]+)#/g;
+    const regexNewline = /(?:\r\n|\r|\n)/g;
+    const paragraphs = article.content
+      .replace(regexBold, "<strong>$1</strong>")
+      .replace(regexTitle, "<h2>$1</h2>")
+      .split(regexNewline);
+    return paragraphs.map((paragraph, index) => (
+      <p key={index} className="article-content" dangerouslySetInnerHTML={{ __html: paragraph }} />
+    ));
+  };
+  
+  
+  
+  
   return (
     <div className="full-article-container">
       <div className="article-header">
@@ -33,38 +49,40 @@ function FullArticle() {
             alt={article.title}
           />
         </div>
-
       )}
 
-      <p className="article-content">{article.content}</p>
-      <hr></hr>
+      {article.content && renderContent()}
+
+      <hr />
+
       <div className="article-share-buttons">
-          <FacebookShareButton
-            url={"https://www.example.com"}
-            quote={"Dummy text!"}
-            hashtag="#muo"
-          >
-            <FacebookIcon size={32} round />
-          </FacebookShareButton>
+        <FacebookShareButton
+          url={`http://localhost:3001/news/${id}`}
+          title={article.title}
+          hashtag="#muo"
+        >
+          <FacebookIcon size={32} round />
+        </FacebookShareButton>
 
-          <TwitterShareButton
-            url={"https://www.example.com"}
-            quote={"Dummy text!"}
-            hashtag="#muo"
-          >
-            <TwitterIcon size={32} round />
-          </TwitterShareButton>
+        <TwitterShareButton
+          url={`http://localhost:3001/news/${id}`}
+          title={article.title}
+          hashtag="#muo"
+        >
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
 
-          <WhatsappShareButton
-            url={"https://www.example.com"}
-            quote={"Dummy text!"}
-            hashtag="#muo"
-          >
-            <WhatsappIcon size={32} round />
-          </WhatsappShareButton>
-        </div>
+        <WhatsappShareButton
+          url={`http://localhost:3001/news/${id}`}
+          title={article.title}
+          hashtag="#muo"
+        >
+          <WhatsappIcon size={32} round />
+        </WhatsappShareButton>
+      </div>
     </div>
   );
 }
 
 export default FullArticle;
+
