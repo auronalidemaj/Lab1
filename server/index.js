@@ -15,6 +15,8 @@ const app = express();
 
 const db = require("./db");
 
+// app.options('*', cors());
+
 app.use(express.json());
 app.use(
   cors({
@@ -26,7 +28,8 @@ app.use(
 
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json({ limit: '5000mb' }));
+app.use(bodyParser.urlencoded({extended: true }));
 
 app.use(
   session({
@@ -257,81 +260,81 @@ app.post("/logout", (req, res) => {
 
 //Products CRUD
 
-app.post("/books",  (req, res) => {
-  try {
-    const { title, category, author, description, price, numBooks, image } = req.body;
+// app.post("/books",  (req, res) => {
+//   try {
+//     const { title, category, author, description, price, numBooks, image } = req.body;
 
-     db.query(
-      "INSERT INTO books (image, title, category, author, description, price, numBooks) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [image, title, category, author, description, price, numBooks]
-    );
-    return res.status(200).send("Book added successfully");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Internal server error");
-  }
-});
+//      db.query(
+//       "INSERT INTO books (image, title, category, author, description, price, numBooks) VALUES (?, ?, ?, ?, ?, ?, ?)",
+//       [image, title, category, author, description, price, numBooks]
+//     );
+//     return res.status(200).send("Book added successfully");
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).send("Internal server error");
+//   }
+// });
 
 
-  app.put("/books/:id", (req, res) => {
-    const bookId = req.params.id;
-    const {image, title, category, author, description, price, numBooks } = req.body;
+  // app.put("/books/:id", (req, res) => {
+  //   const bookId = req.params.id;
+  //   const {image, title, category, author, description, price, numBooks } = req.body;
   
-    if (!image || !title || !category || !author || !description || !price || !numBooks) {
-      return res.status(400).send("Missing required fields");
-    }
-    db.query(
-      "UPDATE books SET image=?, title=?, category=?, author=?, description=?, price=?, numBooks=? WHERE id=?",
-      [image, title, category, author, description, price, numBooks, bookId],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send("Internal server error");
-        }
-        if (result.affectedRows === 0) {
-          return res.status(404).send("Book not found");
-        }
-        return res.status(200).send("Book updated successfully");
-      }
-    );
-  });
-  
-
-  app.get("/books", (req, res) => {
-    db.query("SELECT * FROM books", (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("Internal server error");
-      }
-      return res.status(200).json(result);
-    });
-  });
-
-  app.get("/books/:id", (req, res) => {
-    const bookId = req.params.id;
-    db.query("SELECT * FROM books WHERE id = ?", [bookId], (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("Internal server error");
-      }
-      if (result.length === 0) {
-        return res.status(404).send("Book not found");
-      }
-      return res.status(200).json(result[0]);
-    });
-  });
+  //   if (!image || !title || !category || !author || !description || !price || !numBooks) {
+  //     return res.status(400).send("Missing required fields");
+  //   }
+  //   db.query(
+  //     "UPDATE books SET image=?, title=?, category=?, author=?, description=?, price=?, numBooks=? WHERE id=?",
+  //     [image, title, category, author, description, price, numBooks, bookId],
+  //     (err, result) => {
+  //       if (err) {
+  //         console.log(err);
+  //         return res.status(500).send("Internal server error");
+  //       }
+  //       if (result.affectedRows === 0) {
+  //         return res.status(404).send("Book not found");
+  //       }
+  //       return res.status(200).send("Book updated successfully");
+  //     }
+  //   );
+  // });
   
 
-  app.delete("/books/:id", (req, res) => {
-    const booksId = req.params.id;
-    db.query("DELETE FROM books WHERE id = ?", booksId, (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("Internal server error");
-      }
-      return res.status(200).send("User deleted successfully");
-    });
-  });
+  // app.get("/books", (req, res) => {
+  //   db.query("SELECT * FROM books", (err, result) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).send("Internal server error");
+  //     }
+  //     return res.status(200).json(result);
+  //   });
+  // });
+
+  // app.get("/books/:id", (req, res) => {
+  //   const bookId = req.params.id;
+  //   db.query("SELECT * FROM books WHERE id = ?", [bookId], (err, result) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).send("Internal server error");
+  //     }
+  //     if (result.length === 0) {
+  //       return res.status(404).send("Book not found");
+  //     }
+  //     return res.status(200).json(result[0]);
+  //   });
+  // });
+  
+
+  // app.delete("/books/:id", (req, res) => {
+  //   const booksId = req.params.id;
+  //   db.query("DELETE FROM books WHERE id = ?", booksId, (err, result) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).send("Internal server error");
+  //     }
+  //     return res.status(200).send("User deleted successfully");
+  //   });
+  // });
 
 //contact CRUD
 
@@ -520,6 +523,110 @@ const imageFilename = results[0].image_filename;
   });
 }
 });
+});
+
+
+
+app.post("/books", upload.single('image'), (req, res) => {
+  try {
+    const { title, category, author, description, price, numBooks } = req.body;
+
+  const image_f = req.file ? req.file.filename : "No_Image_Available.jpg";
+
+
+    db.query(
+      "INSERT INTO books (image, title, category, author, description, price, numBooks) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [image_f, title, category, author, description, price, numBooks],
+      (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).send("Internal server error");
+        }
+        return res.status(200).send("Book added successfully");
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error");
+  }
+});
+
+
+  app.get("/books", (req, res) => {
+    db.query("SELECT * FROM books", (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+      return res.status(200).json(result);
+    });
+  });
+
+  
+  app.get("/books/:id", (req, res) => {
+    const bookId = req.params.id;
+    db.query("SELECT * FROM books WHERE id = ?", [bookId], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+      if (result.length === 0) {
+        return res.status(404).send("Book not found");
+      }
+      return res.status(200).json(result[0]);
+    });
+  });
+
+app.put("/books/:id", upload.single("image"), (req, res) => {
+  const bookId = req.params.id;
+  const { title, category, author, description, price, numBooks } = req.body;
+  // let image = null;
+  const image = req.file ? req.file.filename : "No_Image_Available.jpg";
+  
+
+  if (!image || !title || !category || !author || !description || !price || !numBooks) {
+    return res.status(400).send("Missing required fields");
+  }
+  db.query(
+    "UPDATE books SET image=?, title=?, category=?, author=?, description=?, price=?, numBooks=? WHERE id=?",
+    [image, title, category, author, description, price, numBooks, bookId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+      if (result.affectedRows === 0) {
+        return res.status(404).send("Book not found");
+      }
+      return res.status(200).send("Book updated successfully");
+    }
+  );
+});
+
+app.delete("/books/:id", (req, res) => {
+  const bookId = req.params.id;
+  db.query("SELECT image FROM books WHERE id = ?", bookId, (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Internal server error");
+    }
+    if (result.length === 0) {
+      return res.status(404).send("Book not found");
+    }
+    const imageFilename = result[0].image;
+    db.query("DELETE FROM books WHERE id = ?", bookId, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("Internal server error");
+      }
+      fs.unlink(path.join(uploadDir, imageFilename), (err) => {
+        if (err) {
+          console.log(err);
+        }
+        return res.status(200).send("Book deleted successfully");
+      });
+    });
+  });
 });
 
 
