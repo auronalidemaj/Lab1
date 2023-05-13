@@ -71,6 +71,9 @@ const Header = ({ loggedIn, }) => {
               <NavLink to="/products">Products</NavLink>
             </li>
             <li>
+              <NavLink to="/blog">Blog</NavLink>
+            </li>
+            <li>
               <form onSubmit={handleSearch}>
                 <div className="search-box">
                   <SearchIcon className="search-icon" />

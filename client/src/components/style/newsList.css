@@ -10,9 +10,13 @@
   margin-bottom: 20px;
 }
 
-.newsList p {
-  margin-bottom: 20px;
+
+.scrollable-content {
+  max-height: 300px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
 }
+
+
 
 .newsList table {
   width: 100%;

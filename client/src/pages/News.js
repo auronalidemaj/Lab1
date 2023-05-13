@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import '../components/style/news.css';
+import "../components/style/news.css";
 
 function News() {
   const [news, setNews] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(9);
 
   useEffect(() => {
     axios
@@ -38,13 +40,18 @@ function News() {
     }).replace(day, `${day}${suffix}`);
   };
 
+  // Calculate pagination indexes
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = news.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
-      <div className='n-text-center'>
-        <h1>Stay Up-to-Date</h1>
-      </div>
       <div className="news-container">
-        {news.map((newsItem) => (
+        {currentItems.map((newsItem) => (
           <div key={newsItem.id} className="news-item">
             {newsItem.image_filename && (
               <div className="image-container">
@@ -64,10 +71,26 @@ function News() {
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
+      <div className="pagination">
+        {news.length > itemsPerPage && (
+          <ul>
+            {Array.from({ length: Math.ceil(news.length / itemsPerPage) }).map(
+              (item, index) => (
+                <li
+                  key={index}
+                  className={currentPage === index + 1 ? "active" : ""}
+                >
+                  <button onClick={() => paginate(index + 1)}>{index + 1}</button>
+                </li>
+              )
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
 
 export default News;
-
-
