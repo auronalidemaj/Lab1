@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./style/bookform.css";
 
 const EditBookForm = () => {
-  const { id } = useParams(); // get the id from the URL
-  // const history = useHistory();
+  const { id } = useParams(); 
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [numBooks, setNumBooks] = useState(0);
-  const [imageSrc, setImageSrc] = useState("");
+  const [image, setImage] = useState("");
+  const [existingImage, setExistingImage] = useState("");
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
 
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
@@ -23,17 +26,7 @@ const EditBookForm = () => {
   const handleNumBooksChange = (event) => setNumBooks(parseInt(event.target.value));
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const imageSource = reader.result;
-      setImageSrc(imageSource);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    setImage(event.target.files[0]);
   };
 
   useEffect(() => {
@@ -45,7 +38,7 @@ const EditBookForm = () => {
         setDescription(response.data.description);
         setPrice(response.data.price);
         setNumBooks(response.data.numBooks);
-        setImageSrc(response.data.image);
+        setExistingImage(response.data.image);
       })
       .catch((error) => {
         console.error(error);
@@ -53,35 +46,36 @@ const EditBookForm = () => {
       });
   }, [id]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .put(`http://localhost:3001/books/${id}`, {
-        image: imageSrc, // Pass the image source to the server
-        title: title,
-        category: category,
-        author: author,
-        description: description,
-        price: price,
-        numBooks: numBooks,
-      })
-      .then((response) => {
-        console.log(response);
-        setTitle("");
-        setAuthor("");
-        setCategory("");
-        setDescription("");
-        setPrice(0);
-        setNumBooks(0);
-        setImageSrc("");
-        setError("");
-        alert("Book updated successfully!");
-        // history.push("/");
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("Error occurred while updating the book.");
-      });
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("author", author);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("numBooks", numBooks);
+    if (image) {
+      formData.append("image", image);
+    }else {
+      formData.append("existingImage", existingImage);
+    }
+
+    try {
+      await axios.put(`http://localhost:3001/books/${id}`, formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });  
+      setSuccessMsg("Book updated successfully");
+      setError("");
+       navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
+      alert("Error occurred while adding the book.");
+    }
   };
 
   return (
@@ -103,10 +97,22 @@ const EditBookForm = () => {
           <label>
             Category:
             <select value={category} onChange={handleCategoryChange}>
-              <option value="">-- Select a category --</option>
-              <option value="fiction">Fiction</option>
-              <option value="non-fiction">Non-Fiction</option>
-              <option value="children">Children's Books</option>
+            <option value="">-- Select a category --</option>
+          <option value="fiction">Fiction</option>
+          <option value="non-fiction">Non-Fiction</option>
+          <option value="romance">Romance</option>
+          <option value="mystery">Mystery</option>
+          <option value="sciencef">Science Fiction</option>
+          <option value="biography">Biography</option>
+          <option value="history">History</option>
+          <option value="self-help">Self-help</option>
+          <option value="cookbooks">Cookbooks</option>
+          <option value="travel">Travel</option>
+          <option value="art">Art/Photography</option>
+          <option value="children">Children's Books</option>
+          <option value="education">Education</option>
+          <option value="science">Science/Technology</option>
+          <option value="humor">Humor</option>
             </select>
           </label>
           <br />
@@ -131,7 +137,6 @@ const EditBookForm = () => {
           </label>
           <br />
           <button type="submit">Update Book</button>
-          {error && <p className="error">{error}</p>}
         </form>
       </div>
     </div>

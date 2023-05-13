@@ -24,7 +24,8 @@ function LatestProducts() {
 <div className='latest-products-container'>
   {latestProducts.map(product => (
     <div key={product.id} className='latest-product'>
-      <img src={product.image} alt={product.title} />
+      {product.image && <img src={`http://localhost:3001/uploads/${product.image}`} alt={product.title}/>}
+
       <h2>Title: {product.title}</h2>
       <h3>Author: {product.author}</h3>
       <h4>Category: {product.category}</h4>

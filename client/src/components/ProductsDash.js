@@ -50,9 +50,7 @@ function ProductsDash() {
           <td>{book.price}</td>
           <td>{book.numBooks} in stock</td>
           <td>
-            {book.image && (
-              <img src={book.image} alt={book.title} className="book-image" />
-            )}
+          {book.image && <img src={`http://localhost:3001/uploads/${book.image}`} alt={book.title} className="product-image"/>}
           </td>
           <td>
             <Link to={`/EditBookForm/${book.id}`}>

@@ -9,58 +9,54 @@ const BookForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [numBooks, setNumBooks] = useState(0);
-  const [imageSrc, setImageSrc] = useState("");
-
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState("");
+  
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
   const handleAuthorChange = (event) => setAuthor(event.target.value);
   const handleDescriptionChange = (event) => setDescription(event.target.value);
   const handlePriceChange = (event) => setPrice(parseFloat(event.target.value));
   const handleNumBooksChange = (event) => setNumBooks(parseInt(event.target.value));
-  const [error, setError] = useState("");
-
+  
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const imageSource = reader.result;
-      setImageSrc(imageSource);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    setImage(event.target.files[0]);
   };
-
-  const handleSubmit = (event) => {
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/books", {
-        image: imageSrc, // Pass the image source to the server
-        title: title,
-        category: category,
-        author: author,
-        description: description,
-        price: price,
-        numBooks: numBooks,
-      })
-      .then((response) => {
-        console.log(response);
-        setTitle("");
-        setAuthor("");
-        setCategory("");
-        setDescription("");
-        setPrice(0);
-        setNumBooks(0);
-        setImageSrc("");
-        setError("");
-        alert("Book added successfully!");
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("Error occurred while adding the book.");
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("author", author);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("numBooks", numBooks);
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      await axios.post("http://localhost:3001/books", formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+      setTitle("");
+      setAuthor("");
+      setCategory("");
+      setDescription("");
+      setPrice(0);
+      setNumBooks(0);
+      setImage(null);
+      setError("");
+      alert("Book added successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Error occurred while adding the book.");
+    }
   };
 
   return (
@@ -83,7 +79,20 @@ const BookForm = () => {
           <option value="">-- Select a category --</option>
           <option value="fiction">Fiction</option>
           <option value="non-fiction">Non-Fiction</option>
+          <option value="romance">Romance</option>
+          <option value="mystery">Mystery</option>
+          <option value="sciencef">Science Fiction</option>
+          <option value="biography">Biography</option>
+          <option value="history">History</option>
+          <option value="self-help">Self-help</option>
+          <option value="cookbooks">Cookbooks</option>
+          <option value="travel">Travel</option>
+          <option value="art">Art/Photography</option>
           <option value="children">Children's Books</option>
+          <option value="education">Education</option>
+          <option value="science">Science/Technology</option>
+          <option value="humor">Humor</option>
+
         </select>
       </label>
       <label>
