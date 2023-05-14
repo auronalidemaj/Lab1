@@ -1,13 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #fcfcfc;
-}
+
 
 .nav-container {
+  font-family: 'Poppins', sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 15px;
@@ -110,21 +106,21 @@ body {
 .search-icon path {
   fill: #2f234f;
 }
-.cart-icon {
+.nav-cart-icon {
   height: 25px;
   width: 25px;
   margin-left: 0px;
   margin-right: 0px;
 }
-.cart-icon path {
+.nav-cart-icon path {
   fill: #2f234f;
 }
 
-.cart-icon:hover {
+.nav-cart-icon:hover {
   transform: scale(1.07);
 }
 
-.wishlist-icon {
+.nav-wishlist-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,21 +130,21 @@ body {
   cursor: pointer;
 }
 
-.wishlist-icon svg{
+.nav-wishlist-icon svg{
   height: 30px;
   width: 30px;
 }
 
-.wishlist-icon path {
+.nav-wishlist-icon path {
   fill: #2f234f
 }
 
-.wishlist-icon:hover path {
+.nav-wishlist-icon:hover path {
   fill:red;
   transform: scale(1.07);
 }
 
-.wishlist-icon:focus {
+.nav-wishlist-icon:focus {
   outline: none;
 }
 .nav-login-btn {

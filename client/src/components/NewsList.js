@@ -25,11 +25,12 @@ function DashboardNews() {
 
   return (
     <div className="newsList">
+      <div className="headers">
       <h1>News</h1>
-      <p>
-        <Link to="/create-news">Add a new article</Link>
-      </p>
-
+      <Link to="/create-news">
+      <button className="create">Add a new article</button>
+    </Link>
+    </div>
       <div className="paragraph-container">
         <table>
           <thead>
@@ -61,7 +62,7 @@ function DashboardNews() {
                   <button className="edit-button">
                     <Link to={`/news/${article.id}/edit`}>Edit</Link>
                   </button>
-                  <button onClick={() => handleDelete(article.id)}>Delete</button>
+                  <button className="delete-button" onClick={() => handleDelete(article.id)}>Delete</button>
                 </td>
               </tr>
             ))}

@@ -50,7 +50,7 @@ return (
       {latestNews.map((newsItem) => (
         <div key={newsItem.id} className="news-item">
           {newsItem.image_filename && (
-            <div className="image-container">
+            <div className="l-news-image-container">
               <img
                 src={`http://localhost:3001/uploads/${newsItem.image_filename}`}
                 alt={newsItem.title}

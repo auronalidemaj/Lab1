@@ -40,12 +40,12 @@ function News() {
     }).replace(day, `${day}${suffix}`);
   };
 
-  // Calculate pagination indexes
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = news.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page
+ 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -54,7 +54,7 @@ function News() {
         {currentItems.map((newsItem) => (
           <div key={newsItem.id} className="news-item">
             {newsItem.image_filename && (
-              <div className="image-container">
+              <div className="news-image-container">
                 <img
                   src={`http://localhost:3001/uploads/${newsItem.image_filename}`}
                   alt={newsItem.title}
@@ -71,8 +71,6 @@ function News() {
           </div>
         ))}
       </div>
-
-      {/* Pagination */}
       <div className="pagination">
         {news.length > itemsPerPage && (
           <ul>

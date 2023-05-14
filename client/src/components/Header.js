@@ -88,12 +88,12 @@ const Header = ({ loggedIn, }) => {
             </li>
             <li>
               <Link to="/cart">
-                <CartIcon className="cart-icon" />
+                <CartIcon className="nav-cart-icon" />
               </Link>
             </li>
             <li>
               <Link to="/wishlist">
-                <WishlistIcon className="wishlist-icon" />
+                <WishlistIcon className="nav-wishlist-icon" />
               </Link>
             </li>
 

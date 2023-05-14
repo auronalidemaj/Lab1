@@ -1,9 +1,7 @@
-
-.n-text-center h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin: 2rem 0;
-  background-color: #fef7e5;
+.n-text-center h1{
+    text-align: center;
+    color:#2f234f;
+    font-size: 32px;
 }
 .l-news-container {
     display: grid;
@@ -28,14 +26,14 @@
     transition: all 0.2s ease-in-out;
   }
   
-  .news-item .image-container {
-    height: 150px;
+  .news-item .l-news-image-container {
+    height: 200px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .news-item .image-container img {
+  .news-item .l-news-image-container img {
     width: 100%;
     height:100%;
     object-fit: cover;

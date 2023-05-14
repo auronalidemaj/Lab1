@@ -1,19 +1,18 @@
-h1{
-    text-align: center;
-    color:#2f234f;
-    background-color: #f5f5f5;
-}
 
-.contacts {
-    background-color: #f5f5f5;
-    padding: 20px;
+  .contacts {
+    text-align: center;
+      background-color: #f5f5f5;
+      padding: 20px;
   }
   
-  .contacts h1 {
-    font-size: 32px;
-    color: #2f234f;
-    text-align: center;
+  .headers-contacts {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
+  }
+  
+  .headers-contacts h1 {
+    text-align: center;
   }
   
   .contacts-list {

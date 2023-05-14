@@ -3,7 +3,7 @@ import Slider from '../components/Slider'
 import LatestProducts from '../components/LatestProducts'
 import LatestNews from '../components/LatestNews'
 import Contact from '../components/Contact'
-import index from '../components/style/index.css'
+import home from '../components/style/home.css'
 
 
 import Axios from 'axios'

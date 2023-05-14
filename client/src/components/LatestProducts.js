@@ -18,9 +18,8 @@ function LatestProducts() {
   return (
     <div>
       <div className='lp-text-center'>
-
-  <h1>Our Latest Products</h1>
-</div>
+        <h1>Our Latest Products</h1>
+      </div>
 <div className='latest-products-container'>
   {latestProducts.map(product => (
     <div key={product.id} className='latest-product'>
