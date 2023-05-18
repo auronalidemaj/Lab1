@@ -5,6 +5,7 @@ import "../components/style/productDetails.css";
 import { ReactComponent as WishlistIcon } from '../components/icons/wishlist-1.svg';
 import { ReactComponent as CartIcon } from '../components/icons/cart.svg';
 import { Link } from 'react-router-dom';
+import image from '../bookmark.png'
 
 
 function ProductDetails() {
@@ -21,7 +22,10 @@ function ProductDetails() {
       .catch((err) => console.log(err));
   }, [id]);
 
-  // console.log(book)
+  const formattedPrice = (price) => {
+    return price.toFixed(2);
+  };
+  
 
   if (!book) {
     return <div>Loading...</div>;
@@ -41,8 +45,10 @@ function ProductDetails() {
         <h1>{book.title}</h1>
         <h3>Author: {book.author}</h3>
         <h3>Category: {book.category}</h3>
-        <p>Description: {book.description}</p>
-        <h3>Price: {book.price}$</h3>
+        <p>{book.description}</p>
+        <h3>Price: {formattedPrice(book.price)}$</h3>
+        <p className="product-stock">{book.numBooks} books in stock</p>
+
         <div className="buttons-container">
           <Link to="/cart">
             <CartIcon className="cart-icon" />
@@ -51,6 +57,7 @@ function ProductDetails() {
             <WishlistIcon className="wishlist-icon" />
           </Link>
         </div>
+        <img src={image} className='imagee'/>
       </div>
     </div>
   </div>

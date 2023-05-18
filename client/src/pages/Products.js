@@ -3,6 +3,8 @@ import axios from "axios";
 import "../components/style/productsPage.css";
 import { Link } from "react-router-dom";
 import { ReactComponent as WishlistIcon } from '../components/icons/wishlist-1.svg';
+import image from '../bookmark.png'
+
 
 const categoryOptions = [
   "Fiction",
@@ -72,6 +74,11 @@ function Products() {
     return queryString;
   };
 
+  const formattedPrice = (price) => {
+    return price.toFixed(2); // Format the price with 2 decimal places
+  };
+  
+
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category === selectedCategory ? null : category);
     setSelectedAuthor(null);
@@ -105,7 +112,7 @@ function Products() {
         <div className="sidebar">
           <div className="categories-authors-container">
             <div className="categories">
-              <h2 onClick={() => handleCategoryFilter("")}>Categories</h2>
+              <h2 onClick={() => handleCategoryFilter("")}><img src={image} className="rotate-image"/>Categories</h2>
               <ul>
                 {categoryOptions.map((category) => (
                   <li key={category} onClick={() => handleCategoryFilter(category)} className={selectedCategory === category ? "active" : ""}>
@@ -115,7 +122,7 @@ function Products() {
               </ul>
             </div>
             <div className="authors">
-              <h2 onClick={() => handleAuthorFilter("")}>Authors</h2>
+              <h2 onClick={() => handleAuthorFilter("")}><img src={image} className="rotate-image"/>Authors</h2>
               <ul>
                 {authorOptions.map((author) => (
                   <li key={author} onClick={() => handleAuthorFilter(author)} className={selectedAuthor === author ? "active" : ""}>
@@ -133,9 +140,8 @@ function Products() {
                 {book.image && <img src={`http://localhost:3001/uploads/${book.image}`} alt={book.title} className="product-image" />}
               </div>
               <div className="product-details-container">
-                <h2 className="product-title">{book.title}</h2>
-                <p className="product-stock">In stock: {book.numBooks}</p>
-                <p className="product-price">{book.price}$</p>
+                <h3 className="product-title">{book.title}</h3>
+                <p className="product-price">{formattedPrice(book.price)}$</p>
               </div>
               <div className="product-buttons-container">
                 <Link to={`/ProductDetails/${book.id}`}>
