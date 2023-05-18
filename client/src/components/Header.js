@@ -71,6 +71,9 @@ const Header = ({ loggedIn, }) => {
               <NavLink to="/products">Products</NavLink>
             </li>
             <li>
+              <NavLink to="/blog">Blog</NavLink>
+            </li>
+            <li>
               <form onSubmit={handleSearch}>
                 <div className="search-box">
                   <SearchIcon className="search-icon" />
@@ -85,12 +88,12 @@ const Header = ({ loggedIn, }) => {
             </li>
             <li>
               <Link to="/cart">
-                <CartIcon className="cart-icon" />
+                <CartIcon className="nav-cart-icon" />
               </Link>
             </li>
             <li>
               <Link to="/wishlist">
-                <WishlistIcon className="wishlist-icon" />
+                <WishlistIcon className="nav-wishlist-icon" />
               </Link>
             </li>
 

@@ -14,10 +14,10 @@
   width: 75%;
   height: 100%;
 }
-h1{
+.dash h2{
   text-align: center;
   color:#2f234f;
-  font-size: 32 px;
+  font-size: 32px;
 }
 .mainTop {
   display: flex;
@@ -66,5 +66,40 @@ h2 {
     border-bottom: 2px solid #2f234f;
     color: lightslategray;
     transition: border-bottom 0.3s ease-in-out;
+  }
+  
+  @media (max-width: 768px) {
+    .dash {
+      flex-direction: column;
+    }
+  
+    .leftD {
+      width: 100%;
+      border-right: none;
+      margin-bottom: 20px;
+    }
+  
+    .centerD {
+      width: 100%;
+    }
+  
+    .mainTop {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .a {
+      text-align: center;
+    }
+  
+    .lists {
+      align-items: center;
+      text-align: center;
+      gap: 10px; 
+    }
+  
+    .dashButton {
+      margin: 0;
+    }
   }
   

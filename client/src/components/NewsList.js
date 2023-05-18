@@ -25,44 +25,56 @@ function DashboardNews() {
 
   return (
     <div className="newsList">
+      <div className="headers">
       <h1>News</h1>
-      <p><Link to="/create-news">Add a new article</Link></p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Newswriter</th>
-            <th>Content</th>
-            <th>Published At</th>
-            <th>Image</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {news.map((article) => (
-            <tr key={article.id}>
-              <td>{article.title}</td>
-              <td>{article.author}</td>
-              <td>{article.content}</td>
-              <td>{article.published_at}</td>
-              <td>
-                <img src={`http://localhost:3001/uploads/${article.image_filename}`} alt={article.title} />
-              </td>
-              <td>
-                <button className="edit-button">
-                  <Link to={`/news/${article.id}/edit`}>Edit</Link>
-                </button>
-                <button onClick={() => handleDelete(article.id)}>Delete</button>
-              </td>
+      <Link to="/create-news">
+      <button className="create">Add a new article</button>
+    </Link>
+    </div>
+      <div className="paragraph-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Newswriter</th>
+              <th>Content</th>
+              <th>Published At</th>
+              <th>Image</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {news.map((article) => (
+              <tr key={article.id}>
+                <td>{article.title}</td>
+                <td>{article.author}</td>
+                <td>
+                  <div className="scrollable-content">{article.content}</div>
+                </td>
+                <td>{article.published_at}</td>
+                <td>
+                  <img
+                    src={`http://localhost:3001/uploads/${article.image_filename}`}
+                    alt={article.title}
+                  />
+                </td>
+                <td>
+                  <button className="edit-button">
+                    <Link to={`/news/${article.id}/edit`}>Edit</Link>
+                  </button>
+                  <button className="delete-button" onClick={() => handleDelete(article.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
 
 export default DashboardNews;
+
+
 
 

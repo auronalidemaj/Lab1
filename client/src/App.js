@@ -40,7 +40,7 @@ function App() {
       <Route path="/EditUser/:id" element={<EditUser/>} />
       <Route path="/EditBookForm/:id" element={<EditBookForm />} />
       <Route path="dashboard" element={<Dashboard/>}/>
-      <Route path="news" element={<News/>}/>
+      <Route path="/blog" element={<News/>}/>
       <Route path="contact" element={<Contact/>}/>
       <Route path="newsList" element={<NewsList/>}/>
       <Route path="contactList" element={<ContactList/>}/>
