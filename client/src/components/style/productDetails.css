@@ -1,7 +1,6 @@
 .containerr {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     font-size: 25px;
   }
   
@@ -82,3 +81,40 @@
   .wishlist-icon:focus {
     outline: none;
   }
+  @media screen and (max-width: 850px) {
+    .containerr {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+    }
+    
+    .product-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%; 
+      margin-top: 30px;
+      align-items: center;
+    }
+    
+    .image-container {
+      width: 70%;
+      display: flex;
+      justify-content: center;
+    }
+    
+    h1 {
+      display: flex;
+      justify-content: center; 
+      margin-top: 20px;
+    }
+    
+    
+    
+    .buttons-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center; 
+    }
+    
+  }
+  

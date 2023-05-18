@@ -68,6 +68,14 @@
     font-size: 1rem;
     cursor: pointer;
     }
+
+    .error{
+        color: red;
+    }
+
+    .success{
+        color: green;
+    }
     
     @media screen and (max-width: 768px) {
     .registration {

@@ -11,6 +11,7 @@ const BookForm = () => {
   const [numBooks, setNumBooks] = useState(0);
   const [image, setImage] = useState(null);
   const [error, setError] = useState("");
+  const [successMessage,setSuccessMessage] = useState("");
   
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleCategoryChange = (event) => setCategory(event.target.value);
@@ -25,7 +26,37 @@ const BookForm = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
+    if (title === "") {
+      setError("Title is required");
+      return;
+    }
+  
+    if (category === "") {
+      setError("Category is required");
+      return;
+    }
+  
+    if (author === "") {
+      setError("Author is required");
+      return;
+    }
+  
+    if (description === "") {
+      setError("Description is required");
+      return;
+    }
+  
+    if (price <= 0) {
+      setError("Price should be greater than 0");
+      return;
+    }
+  
+    if (numBooks <= 0) {
+      setError("Number of books should be greater than 0");
+      return;
+    }
+  
     const formData = new FormData();
     formData.append("title", title);
     formData.append("category", category);
@@ -36,7 +67,7 @@ const BookForm = () => {
     if (image) {
       formData.append("image", image);
     }
-
+  
     try {
       await axios.post("http://localhost:3001/books", formData, {
         withCredentials: true,
@@ -52,12 +83,14 @@ const BookForm = () => {
       setNumBooks(0);
       setImage(null);
       setError("");
-      alert("Book added successfully!");
+      setSuccessMessage("Book added successfully!");
+      window.location.href = "/dashboard";
     } catch (err) {
       console.error(err);
-      alert("Error occurred while adding the book.");
+      setError("Error occurred while adding the book.");
     }
   };
+  
 
   return (
 <div className="my-registration1">
@@ -77,21 +110,21 @@ const BookForm = () => {
         Category:
         <select value={category} onChange={handleCategoryChange}>
           <option value="">-- Select a category --</option>
-          <option value="fiction">Fiction</option>
-          <option value="non-fiction">Non-Fiction</option>
-          <option value="romance">Romance</option>
-          <option value="mystery">Mystery</option>
-          <option value="sciencef">Science Fiction</option>
-          <option value="biography">Biography</option>
-          <option value="history">History</option>
-          <option value="self-help">Self-help</option>
-          <option value="cookbooks">Cookbooks</option>
-          <option value="travel">Travel</option>
-          <option value="art">Art/Photography</option>
-          <option value="children">Children's Books</option>
-          <option value="education">Education</option>
-          <option value="science">Science/Technology</option>
-          <option value="humor">Humor</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Non-fiction">Non-Fiction</option>
+          <option value="Romance">Romance</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Biography">Biography</option>
+          <option value="History">History</option>
+          <option value="Self-help">Self-help</option>
+          <option value="Cookbooks">Cookbooks</option>
+          <option value="Travel">Travel</option>
+          <option value="Art/Photography">Art/Photography</option>
+          <option value="Children's Books">Children's Books</option>
+          <option value="Education">Education</option>
+          <option value="Science/Technology">Science/Technology</option>
+          <option value="Humor">Humor</option>
 
         </select>
       </label>
@@ -111,8 +144,9 @@ const BookForm = () => {
         Number of books available:
         <input type="number" min="0" value={numBooks.toString()} onChange={handleNumBooksChange} />
       </label>
-      <button type="submit">Add Book</button>
       {error && <p className="error">{error}</p>}
+      {successMessage && <p className="success">{successMessage}</p>}
+      <button type="submit">Add Book</button>
     </form>
   </div>
 </div>

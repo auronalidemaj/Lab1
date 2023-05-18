@@ -15,7 +15,6 @@ const EditBookForm = () => {
   const [image, setImage] = useState("");
   const [existingImage, setExistingImage] = useState("");
   const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
 
 
   const handleTitleChange = (event) => setTitle(event.target.value);
@@ -69,12 +68,11 @@ const EditBookForm = () => {
           "Content-Type": "multipart/form-data",
         },
       });  
-      setSuccessMsg("Book updated successfully");
       setError("");
-       navigate('/dashboard');
+      navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      alert("Error occurred while adding the book.");
+      setError("Error occurred while updating the book.");
     }
   };
 
@@ -98,21 +96,21 @@ const EditBookForm = () => {
             Category:
             <select value={category} onChange={handleCategoryChange}>
             <option value="">-- Select a category --</option>
-          <option value="fiction">Fiction</option>
-          <option value="non-fiction">Non-Fiction</option>
-          <option value="romance">Romance</option>
-          <option value="mystery">Mystery</option>
-          <option value="sciencef">Science Fiction</option>
-          <option value="biography">Biography</option>
-          <option value="history">History</option>
-          <option value="self-help">Self-help</option>
-          <option value="cookbooks">Cookbooks</option>
-          <option value="travel">Travel</option>
-          <option value="art">Art/Photography</option>
-          <option value="children">Children's Books</option>
-          <option value="education">Education</option>
-          <option value="science">Science/Technology</option>
-          <option value="humor">Humor</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Non-fiction">Non-Fiction</option>
+          <option value="Romance">Romance</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Biography">Biography</option>
+          <option value="History">History</option>
+          <option value="Self-help">Self-help</option>
+          <option value="Cookbooks">Cookbooks</option>
+          <option value="Travel">Travel</option>
+          <option value="Art/Photograpy">Art/Photography</option>
+          <option value="Children's Books">Children's Books</option>
+          <option value="Education">Education</option>
+          <option value="Science">Science/Technology</option>
+          <option value="Humor">Humor</option>
             </select>
           </label>
           <br />
@@ -136,6 +134,7 @@ const EditBookForm = () => {
             <input type="number" min="0" value={numBooks.toString()} onChange={handleNumBooksChange} />
           </label>
           <br />
+          {error && <p className="error">{error}</p>}
           <button type="submit">Update Book</button>
         </form>
       </div>
