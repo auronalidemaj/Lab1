@@ -25,11 +25,6 @@ function ProductsDash() {
     }
   };
 
-  
-  const formattedPrice = (price) => {
-    return price.toFixed(2);
-  };
-  
 
   return (
     <div className="products">
@@ -53,7 +48,7 @@ function ProductsDash() {
       {books.map((book) => (
         <tr key={book.id}>
           <td>{book.title}</td>
-          <td>{formattedPrice(book.price)}$</td>
+          <td>{book.price}$</td>
           <td>{book.numBooks} in stock</td>
           <td>
           {book.image && <img src={`http://localhost:3001/uploads/${book.image}`} alt={book.title} className="product-image"/>}

@@ -22,10 +22,6 @@ function ProductDetails() {
       .catch((err) => console.log(err));
   }, [id]);
 
-  const formattedPrice = (price) => {
-    return price.toFixed(2);
-  };
-  
 
   if (!book) {
     return <div>Loading...</div>;
@@ -46,7 +42,7 @@ function ProductDetails() {
         <h3>Author: {book.author}</h3>
         <h3>Category: {book.category}</h3>
         <p>{book.description}</p>
-        <h3>Price: {formattedPrice(book.price)}$</h3>
+        <h3>Price: {book.price}$</h3>
         <p className="product-stock">{book.numBooks} books in stock</p>
 
         <div className="buttons-container">

@@ -109,7 +109,7 @@ const EditBookForm = () => {
           <option value="Art/Photograpy">Art/Photography</option>
           <option value="Children's Books">Children's Books</option>
           <option value="Education">Education</option>
-          <option value="Science">Science/Technology</option>
+          <option value="Science/Technology">Science/Technology</option>
           <option value="Humor">Humor</option>
             </select>
           </label>
