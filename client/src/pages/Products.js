@@ -74,9 +74,6 @@ function Products() {
     return queryString;
   };
 
-  const formattedPrice = (price) => {
-    return price.toFixed(2); // Format the price with 2 decimal places
-  };
   
 
   const handleCategoryFilter = (category) => {
@@ -141,7 +138,7 @@ function Products() {
               </div>
               <div className="product-details-container">
                 <h3 className="product-title">{book.title}</h3>
-                <p className="product-price">{formattedPrice(book.price)}$</p>
+                <p className="product-price">{book.price}$</p>
               </div>
               <div className="product-buttons-container">
                 <Link to={`/ProductDetails/${book.id}`}>
