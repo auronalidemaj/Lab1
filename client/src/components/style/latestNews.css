@@ -1,84 +1,59 @@
-.n-text-center h1{
-    text-align: center;
-    color:#2f234f;
-    font-size: 32px;
-}
 .l-news-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
-    margin: 20px 20px 20px 20px;
-    align-items: center;
-    background-color: #fef7e5;
-  }
-  .news-item-content hr{
-    width: 320px;
-  }
-  .news-item {
-    background-color: #fff;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-  
-  .news-item:hover {
-    transform: translateY(-5px);
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .news-item .l-news-image-container {
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .news-item .l-news-image-container img {
-    width: 100%;
-    height:100%;
-    object-fit: cover;
-  }
-  .news-share-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 16px;
-  }
-  
-  .news-share-buttons > * {
-    margin: 0 8px;
-  }
-  
-  
-  .news-item .news-item-content {
-    padding: 20px;
-    height: 320px;
-    overflow: auto;
-  }
-  
-  .news-item h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-  }
-  
-  .news-item p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.5;
-    margin: 0;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-    white-space: pre-wrap;
-  }
-  
-  
-  .news-item .author {
-    font-weight: bold;
-  }
-  
-  .news-item .date {
-    font-style: italic;
-    margin-top: 10px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  margin: 20px;
+}
+.n-text-center{
+  text-align: center;
+  color:#2f234f;
+}
+
+.news-item {
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.l-news-image-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.l-news-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-item-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-item-content h2 {
+  margin-top: 0;
+}
+
+.news-item-content .content {
+  margin-bottom: 10px;
+}
+
+.news-item-content a {
+  color: #007bff;
+  text-decoration: none;
+  align-self: flex-end;
+}
+
+.news-item-content hr {
+  margin: 10px 0;
+  align-self: flex-end;
+}
+
+.news-item-content time {
+  align-self: flex-end;
+}

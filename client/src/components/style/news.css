@@ -1,107 +1,94 @@
 .news-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
-    margin: 20px 20px 20px 20px;
-    align-items: center;
-  }
-  
-  .pagination {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-   .pagination ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .pagination li {
-    margin-right: 5px;
-  }
-  
- .pagination button {
-    display: inline-block;
-    padding: 8px 12px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: #666;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-.pagination button:hover {
-    background-color: #eee;
-  }
-  
- .pagination .active button {
-    background-color: #ddd;
-  }
-  
-  .news-item {
-    background-color: #fff;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-  
-  .news-item:hover {
-    transform: translateY(-5px);
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .news-item .news-image-container {
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .news-item .news-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .news-item .news-item-content {
-    padding: 20px;
-    height: 320px;
-    overflow: auto;
-  }
-  
-  .news-item h2 {
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-  
-  .news-item p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.5;
-    margin: 0;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-    white-space: pre-wrap;
-  }
-  
-  .news-item .author {
-    font-weight: bold;
-  }
-  
-  .news-item .date {
-    font-style: italic;
-    margin-top: 10px;
-  }
-  
-  .news-item-content hr {
-    width: 320px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  margin: 20px;
+}
+
+.news-item {
+  border: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-image-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.news-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-item-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-item-content h2 {
+  margin-top: 0;
+}
+
+.news-item-content .content {
+  margin-bottom: 10px;
+}
+
+.news-item-content a {
+  color: #2f234f;
+  text-decoration: none;
+  align-self: flex-end;
+  margin-top: auto; /* Add this property to push the link to the bottom */
+}
+
+.news-item-content hr {
+  margin: 10px 0;
+  align-self: flex-end;
+  width: 100%; /* Set the width to fill the container */
+}
+
+.news-item-content time {
+  align-self: flex-end;
+  margin-top: auto; /* Add this property to push the time element to the bottom */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination li button {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pagination li button:focus {
+  outline: none;
+}
+
+.pagination li button:hover {
+  text-decoration: underline;
+}
+
+.pagination li.active button {
+  font-weight: bold;
+}
