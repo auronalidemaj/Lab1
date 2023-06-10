@@ -3,6 +3,7 @@ import Slider from '../components/Slider'
 import LatestProducts from '../components/LatestProducts'
 import LatestNews from '../components/LatestNews'
 import Contact from '../components/Contact'
+import Newsletter from '../components/Newsletter'
 import home from '../components/style/home.css'
 
 
@@ -24,6 +25,7 @@ function Home() {
     <Slider/>
     <LatestProducts/>
     <LatestNews/>
+    <Newsletter/>
     <Contact/>
     </div>
 

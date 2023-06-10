@@ -1,0 +1,74 @@
+.subscribers-container {
+    margin: 50px auto;
+    max-width: 800px;
+  }
+  
+  .subscribers-title {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .subscribers-title .create {
+    background: none;
+    border: none;
+    color: #2f234f;
+    margin-bottom: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.6s ease;
+  }
+  
+  .subscribers-title .create:hover {
+    color: #6940a7;
+    transition: 0.9s;
+  }
+  
+  .subscribers-email-list {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .subscribers-email-list th,
+  .subscribers-email-list td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .subscribers-email-list th {
+    background-color: #f2f2f2;
+  }
+  
+  .subscribers-email-list td:last-child {
+    text-align: center;
+  }
+  
+  .subscribers-email-list .edit {
+    margin-right: 5px;
+    color: #fff;
+    background-color: #2f234f;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .subscribers-email-list .edit:hover {
+    background-color: #6940a7;
+    transition: 0.6s;
+  }
+  
+  .subscribers-email-list .delete {
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .subscribers-email-list .delete:hover {
+    background-color: #ff8c82;
+    transition: 0.6s;
+  }
+  

@@ -8,6 +8,7 @@ import EditNews from './components/EditNews';
 import CreateNews from './components/CreateNews';
 import CreateUser from './components/CreateUser';
 import EditUser from "./components/EditUser";
+import Confirmation from "./components/Confirmation";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import News from "./pages/News";
@@ -47,6 +48,7 @@ function App() {
       <Route path="/news/:id/edit" element={<EditNews/>}/>
       <Route path="/create-news" element={<CreateNews/>}/>
       <Route path="/news/:id" element={<FullArticle/>} />
+      <Route path="/confirm/:confirmationToken" element={<  Confirmation/>} />
     </Routes>
     <Footer/>
     </>

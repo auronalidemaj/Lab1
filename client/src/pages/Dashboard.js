@@ -3,6 +3,7 @@ import Users from '../components/Users';
 import Contact from '../components/ContactList';
 import '../components/style/dashboard.css';
 import ProductsDash from '../components/ProductsDash';
+import Subscribers from '../components/Subscribers';
 import News from '../components/NewsList';
 function Dashboard() {
   const [activeButton, setActiveButton] = useState('users');
@@ -20,6 +21,9 @@ function Dashboard() {
   };
   const handleNewsClick = () => {
     setActiveButton('news');
+  };
+  const handleSubscribersClick = () => {
+    setActiveButton('subscribers');
   };
   return (
     <>
@@ -61,6 +65,15 @@ function Dashboard() {
                   Contact
                 </button>
               </li>
+
+              <li>
+                <button
+                  className={`dashButton ${activeButton === 'subscribers' ? 'active' : ''}`}
+                  onClick={handleSubscribersClick}
+                >
+                  Subscribers
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -69,6 +82,7 @@ function Dashboard() {
           {activeButton === 'contact' && <Contact />}
           {activeButton === 'product' && <ProductsDash />}
           {activeButton === 'news' && <News />}
+          {activeButton === 'subscribers' && <Subscribers/>}
         </div>
       </div>
     </>

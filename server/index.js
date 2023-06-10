@@ -7,6 +7,9 @@ const mysql = require('mysql');
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -256,6 +259,156 @@ app.post("/logout", (req, res) => {
     res.send({ message: "Logged out successfully" });
   });
 });
+
+
+// ...
+
+// Generate confirmation token
+function generateConfirmationToken() {
+  return crypto.randomBytes(20).toString('hex');
+}
+
+// Handle subscription confirmation
+app.get('/confirm/:confirmationToken', (req, res) => {
+  const { confirmationToken } = req.params;
+
+  db.query(
+    'SELECT * FROM subscribers WHERE confirmation_token = ?',
+    [confirmationToken],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (result.length === 0) {
+        return res.status(400).send('Invalid confirmation token');
+      }
+
+      // Update confirmed status in the database
+      db.query(
+        'UPDATE subscribers SET confirmed = 1 WHERE confirmation_token = ?',
+        [confirmationToken],
+        (err) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).send('Internal server error');
+          }
+
+          return res.status(200).send('Email subscription confirmed successfully');
+        }
+      );
+    }
+  );
+});
+
+// Handle subscription request
+app.post('/subscribe', (req, res) => {
+  const { name, email } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).send('Please fill out all fields');
+  }
+
+  db.query(
+    'SELECT * FROM subscribers WHERE email = ?',
+    [email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (result.length > 0) {
+        // Email already exists
+        const message = 'Email already subscribed';
+        return res.status(200).send({ message });
+      }
+
+      // Generate confirmation token
+      const confirmationToken = generateConfirmationToken();
+
+      // Insert a new record with confirmation token
+      db.query(
+        'INSERT INTO subscribers (name, email, confirmation_token) VALUES (?, ?, ?)',
+        [name, email, confirmationToken],
+        (err) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).send('Internal server error');
+          }
+
+          // Send email notification with confirmation link
+          sendEmailNotification(name, email, confirmationToken);
+
+          return res.status(200).send('Email subscription saved successfully');
+        }
+      );
+    }
+  );
+});
+
+
+app.get('/subscribers/confirmed', (req, res) => {
+  db.query('SELECT email FROM subscribers WHERE confirmed = ?', [true], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send('Internal server error');
+    }
+
+    const emails = result.map((row) => row.email);
+    return res.status(200).send(emails);
+  });
+});
+
+
+
+// Function to send email notification
+function sendEmailNotification(name, email, confirmationToken) {
+  // Create a transporter for sending emails
+  const transporter = nodemailer.createTransport({
+    service: 'Outlook',
+    auth: {
+      user: 'onlinebookstoreabr@outlook.com',
+      pass: 'Onlinebookstore1',
+    },
+  });
+
+  // Configure the email content
+  const mailOptions = {
+    from: 'onlinebookstoreabr@outlook.com',
+    to: email,
+    subject: 'Subscription Confirmation',
+    text: `Dear ${name},
+    
+    Thank you for subscribing to our newsletter! We're excited to have you on board and look forward to sharing the latest news, updates, and exclusive offers with you.
+    
+    To ensure that you receive our emails and stay up-to-date with all the exciting content we have planned, we kindly ask you to confirm your subscription by clicking the link below:
+    
+    http://localhost:3001/confirm/${confirmationToken}
+    
+    By confirming your subscription, you'll be among the first to hear about our upcoming promotions, new releases, helpful resources, and much more. We value your privacy and promise to keep your information secure and confidential.
+    
+    If you did not subscribe to our newsletter or believe this email was sent to you by mistake, please disregard this message, and no further action is required.
+    
+    We appreciate your trust in us and can't wait to start delivering valuable content straight to your inbox. If you have any questions or need assistance, feel free to contact our friendly support team at onlinebookstoreabr@outlook.com.
+    
+    Thank you once again for joining our community!
+    
+    Warm regards,
+    Blerina
+    Bookworms!`,
+    };
+    
+    // Send the email
+    transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+    console.log('Error sending email:', err);
+    } else {
+    console.log('Email sent:', info.response);
+    }
+    });
+   }
 
 
 //Products CRUD
@@ -525,7 +678,7 @@ const imageFilename = results[0].image_filename;
 });
 });
 
-
+//books
 
 app.post("/books", upload.single('image'), (req, res) => {
   try {
@@ -628,6 +781,12 @@ app.delete("/books/:id", (req, res) => {
     });
   });
 });
+
+
+//newsletter
+
+
+
 
 
 app.listen(3001, () => {
