@@ -261,8 +261,6 @@ app.post("/logout", (req, res) => {
 });
 
 
-// ...
-
 // Generate confirmation token
 function generateConfirmationToken() {
   return crypto.randomBytes(20).toString('hex');
@@ -410,6 +408,49 @@ function sendEmailNotification(name, email, confirmationToken) {
     });
    }
 
+
+// Function to send email notification
+function sendArticleNotification(title, author, content, email) {
+  // Create a transporter for sending emails
+  const transporter = nodemailer.createTransport({
+    service: 'Outlook',
+    auth: {
+      user: 'onlinebookstoreabr@outlook.com',
+      pass: 'Onlinebookstore1',
+    },
+  });
+
+  // Configure the email content
+  const mailOptions = {
+    from: 'onlinebookstoreabr@outlook.com',
+    to: email,
+    subject: 'New News Article',
+    text: `Dear subscriber,
+    
+    We have published a new news article:
+    
+    Title: ${title}
+    Author: ${author}
+    Content: ${content}
+    
+    Check it out on our website for more details.
+    
+    Thank you for your continued support!
+    
+    Warm regards,
+    Blerina
+    Bookworms!`,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log('Error sending email:', err);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+}
 
 //Products CRUD
 
@@ -592,10 +633,26 @@ app.post("/news", upload.single("image"), (req, res) => {
       console.error(err);
       res.status(500).send("Error creating news");
     } else {
+      // Get the list of confirmed subscribers
+      db.query('SELECT email FROM subscribers WHERE confirmed = ?', [true], (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send('Internal server error');
+        }
+
+        const emails = result.map((row) => row.email);
+
+        // Send email notification to each confirmed subscriber
+        emails.forEach((email) => {
+          sendArticleNotification(title, author, content, email);
+        });
+      });
+
       res.send("News created successfully");
     }
   });
 });
+
 
 app.get("/news/:id", (req, res) => {
   const id = req.params.id;
