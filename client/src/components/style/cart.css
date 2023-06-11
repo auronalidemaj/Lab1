@@ -1,0 +1,129 @@
+.containerr {
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+  }
+  
+  .product-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%; 
+    margin: 10px 70px;
+  }
+  
+  .image-container {
+    width: 25%;
+    margin-right: 20px;
+  }
+  
+  .content-container h1{
+    display: flex;
+    justify-content: flex-start;
+    background-color: white;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .content-container {
+    width: 70%;
+    margin-top: 20px;
+  }
+  
+  .content-container h1 {
+    margin-top: 0;
+  }
+  
+  .content-container button {
+    margin-top: 20px;
+  }
+  
+ .buttons-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .cart-icon {
+    height: 35px;
+    width: 35px;
+    margin-left: 0px;
+    margin-right: 20px;
+  }
+  .cart-icon path {
+    fill: #2f234f;
+  }
+  
+  .cart-icon:hover {
+    transform: scale(1.07);
+  }
+  
+  .wishlist-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    margin-right: 0px;
+    cursor: pointer;
+  }
+  
+  
+  .wishlist-icon path {
+    fill: #2f234f
+  }
+  
+  .wishlist-icon:hover path {
+    fill:red;
+    transform: scale(1.07);
+  }
+  
+  .wishlist-icon:focus {
+    outline: none;
+  }
+
+  .imagee {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 180px; 
+    height: auto;
+  }
+  @media screen and (max-width: 850px) {
+    .containerr {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+    }
+    
+    .product-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%; 
+      margin-top: 30px;
+      align-items: center;
+    }
+    
+    .image-container {
+      width: 70%;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .content-container h1 {
+      display: flex;
+      justify-content: center; 
+      margin-top: 20px;
+    }
+    
+    
+    
+    .buttons-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center; 
+    }
+    
+  }
+  

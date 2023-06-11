@@ -27,6 +27,18 @@ function ProductDetails() {
     return <div>Loading...</div>;
   }
 
+  const handleAddToCart = () => {
+    axios
+      .post(`http://localhost:3001/cart/add`, { productId: book.id, quantity:book.numBooks })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
+
   return (
     <div className="containerr">
     <div className="product-container">
@@ -47,13 +59,13 @@ function ProductDetails() {
 
         <div className="buttons-container">
           <Link to="/cart">
-            <CartIcon className="cart-icon" />
+            <CartIcon className="cart-icon" onClick={handleAddToCart}/>
           </Link>
           <Link to="/wishlist">
             <WishlistIcon className="wishlist-icon" />
           </Link>
         </div>
-        <img src={image} className='imagee'/>
+        <img src={image} className='imagee' alt='bookmark'/>
       </div>
     </div>
   </div>

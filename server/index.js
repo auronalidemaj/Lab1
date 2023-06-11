@@ -839,6 +839,110 @@ app.delete("/books/:id", (req, res) => {
   });
 });
 
+app.post('/cart/add', (req, res) => {
+  const { productId,quantity } = req.body;
+
+  // Insert the product into the cart table
+  const sql = 'INSERT INTO cart (productId,quantity) VALUES (?,?)';
+  db.query(sql, [productId,quantity], (err, result) => {
+    if (err) {
+      console.error('Error adding item to cart:', err);
+      return res.status(500).json({ error: 'Failed to add item to cart' });
+    }
+
+    // Item added to cart successfully
+    return res.json({ message: 'Item added to cart' });
+  });
+});
+
+app.get('/cart', (req, res) => {
+  const sql = 'SELECT * FROM cart';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving cart items:', err);
+      return res.status(500).json({ error: 'Failed to retrieve cart items' });
+    }
+
+    const cartItems = result.map((row) => {
+      return {
+        id: row.id,
+        productId: row.productId,
+        quantity: row.quantity,
+      };
+    });
+
+    return res.json(cartItems);
+  });
+});
+
+app.delete('/cart/:id', (req, res) => {
+  const id = req.params.id;
+  db.query('DELETE FROM cart WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      console.error('Error deleting item from cart:', err);
+      return res.status(500).json({ error: 'Failed to delete item from cart' });
+    }
+
+    return res.status(200).send('Book deleted successfully');
+  });
+});
+
+app.get('/cart/buy', (req, res) => {
+  const sqlSelect = 'SELECT * FROM cart';
+  db.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.error('Error retrieving selected books:', err);
+      return res.status(500).json({ error: 'Failed to retrieve selected books' });
+    }
+
+    const selectedBooks = result.map((row) => {
+      return {
+        productId: row.productId,
+        quantity: row.quantity,
+      };
+    });
+
+    const sqlInsert = 'INSERT INTO dashboard_cart (productId, quantity) VALUES ?';
+    db.query(sqlInsert, [selectedBooks.map((book) => [book.productId, book.quantity])], (err, result) => {
+      if (err) {
+        console.error('Error adding selected books to dashboard:', err);
+        return res.status(500).json({ error: 'Failed to add selected books to dashboard' });
+      }
+
+      const sqlDelete = 'DELETE FROM cart';
+      db.query(sqlDelete, (err, result) => {
+        if (err) {
+          console.error('Error emptying the cart:', err);
+          return res.status(500).json({ error: 'Failed to empty the cart' });
+        }
+
+        return res.json({ message: 'Purchase completed successfully' });
+      });
+    });
+  });
+});
+
+app.get('/dashboard/cart', (req, res) => {
+  const sql = 'SELECT * FROM dashboard_cart';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving dashboard cart:', err);
+      return res.status(500).json({ error: 'Failed to retrieve dashboard cart' });
+    }
+
+    const cartItems = result.map((row) => {
+      return {
+        productId: row.productId,
+        quantity: row.quantity,
+      };
+    });
+
+    return res.json(cartItems);
+  });
+});
+
+
+
 
 //newsletter
 
