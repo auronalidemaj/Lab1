@@ -260,7 +260,7 @@ app.post("/logout", (req, res) => {
   });
 });
 
-
+//newsletter
 // Generate confirmation token
 function generateConfirmationToken() {
   return crypto.randomBytes(20).toString('hex');
@@ -300,6 +300,13 @@ app.get('/confirm/:confirmationToken', (req, res) => {
   );
 });
 
+// Function to send email notification with a delay
+function sendEmailNotificationWithDelay(name, email, confirmationToken, delay) {
+  setTimeout(() => {
+    sendEmailNotification(name, email, confirmationToken);
+  }, delay);
+}
+
 // Handle subscription request
 app.post('/subscribe', (req, res) => {
   const { name, email } = req.body;
@@ -336,8 +343,9 @@ app.post('/subscribe', (req, res) => {
             return res.status(500).send('Internal server error');
           }
 
-          // Send email notification with confirmation link
-          sendEmailNotification(name, email, confirmationToken);
+          // Send email notification with confirmation link after a delay
+          const delay = 5000; // 5 seconds delay (adjust as needed)
+          sendEmailNotificationWithDelay(name, email, confirmationToken, delay);
 
           return res.status(200).send('Email subscription saved successfully');
         }
@@ -346,7 +354,7 @@ app.post('/subscribe', (req, res) => {
   );
 });
 
-
+//read only confirmed emails
 app.get('/subscribers/confirmed', (req, res) => {
   db.query('SELECT email FROM subscribers WHERE confirmed = ?', [true], (err, result) => {
     if (err) {
@@ -372,31 +380,27 @@ function sendEmailNotification(name, email, confirmationToken) {
     },
   });
 
-  // Configure the email content
-  const mailOptions = {
-    from: 'onlinebookstoreabr@outlook.com',
-    to: email,
-    subject: 'Subscription Confirmation',
-    text: `Dear ${name},
-    
-    Thank you for subscribing to our newsletter! We're excited to have you on board and look forward to sharing the latest news, updates, and exclusive offers with you.
-    
-    To ensure that you receive our emails and stay up-to-date with all the exciting content we have planned, we kindly ask you to confirm your subscription by clicking the link below:
-    
-    http://localhost:3001/confirm/${confirmationToken}
-    
-    By confirming your subscription, you'll be among the first to hear about our upcoming promotions, new releases, helpful resources, and much more. We value your privacy and promise to keep your information secure and confidential.
-    
-    If you did not subscribe to our newsletter or believe this email was sent to you by mistake, please disregard this message, and no further action is required.
-    
-    We appreciate your trust in us and can't wait to start delivering valuable content straight to your inbox. If you have any questions or need assistance, feel free to contact our friendly support team at onlinebookstoreabr@outlook.com.
-    
-    Thank you once again for joining our community!
-    
-    Warm regards,
-    Blerina
-    Bookworms!`,
-    };
+ // Configure the email content
+const mailOptions = {
+  from: 'onlinebookstoreabr@outlook.com',
+  to: email,
+  subject: 'Subscription Confirmation',
+  html: `
+    <p>Dear ${name},</p>
+    <p>Thank you for subscribing to our newsletter! We're excited to have you on board and look forward to sharing the latest news, updates, and exclusive offers with you.</p>
+    <p>To ensure that you receive our emails and stay up-to-date with all the exciting content we have planned, we kindly ask you to confirm your subscription by clicking the button below:</p>
+    <div style="text-align: center;">
+      <a href="http://localhost:3001/confirm/${confirmationToken}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">Confirm Subscription</a>
+    </div>
+    <p>By confirming your subscription, you'll be among the first to hear about our upcoming promotions, new releases, helpful resources, and much more. We value your privacy and promise to keep your information secure and confidential.</p>
+    <p>If you did not subscribe to our newsletter or believe this email was sent to you by mistake, please disregard this message, and no further action is required.</p>
+    <p>We appreciate your trust in us and can't wait to start delivering valuable content straight to your inbox. If you have any questions or need assistance, feel free to contact our friendly support team at onlinebookstoreabr@outlook.com.</p>
+    <p>Thank you once again for joining our community!</p>
+    <p>Warm regards,</p>
+    <p>Bookworms!</p>
+  `
+};
+
     
     // Send the email
     transporter.sendMail(mailOptions, (err, info) => {
@@ -410,7 +414,7 @@ function sendEmailNotification(name, email, confirmationToken) {
 
 
 // Function to send email notification
-function sendArticleNotification(title, author, content, email) {
+function sendArticleNotification(title, content, email) {
   // Create a transporter for sending emails
   const transporter = nodemailer.createTransport({
     service: 'Outlook',
@@ -425,21 +429,18 @@ function sendArticleNotification(title, author, content, email) {
     from: 'onlinebookstoreabr@outlook.com',
     to: email,
     subject: 'New News Article',
-    text: `Dear subscriber,
-    
-    We have published a new news article:
-    
-    Title: ${title}
-    Author: ${author}
-    Content: ${content}
-    
-    Check it out on our website for more details.
-    
-    Thank you for your continued support!
-    
-    Warm regards,
-    Blerina
-    Bookworms!`,
+    html: `
+      <p>Dear subscriber,</p>
+      <p>We have published a new news article:</p>
+      <p>Title: ${title}</p>
+      <p>Content: ${content}</p>
+      <p>Check it out on our website for more details.</p>
+      <p>Thank you for your continued support!</p>
+      <p>Warm regards,</p>
+      <p>Blerina<br>Bookworms!</p>
+      <p>If you no longer wish to receive our notifications, you can unsubscribe by clicking the button below:</p>
+      <p><a href="http://localhost:3001/unsubscribe/${email}"><button style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Unsubscribe</button></a></p>
+    `,
   };
 
   // Send the email
@@ -451,6 +452,24 @@ function sendArticleNotification(title, author, content, email) {
     }
   });
 }
+
+app.get('/unsubscribe/:email', (req, res) => {
+  const { email } = req.params;
+
+  // Update the confirmed status to 0 (unconfirmed) for the matching email
+  db.query(
+    'UPDATE subscribers SET confirmed = 0 WHERE email = ?',
+    [email],
+    (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Internal server error');
+      }
+
+      return res.status(200).send('Email subscription cancelled successfully');
+    }
+  );
+});
 
 //Products CRUD
 
@@ -620,6 +639,14 @@ app.get("/news", (req, res) => {
   });
 });
 
+// Function to send news notification with a delay
+function sendNewsNotificationWithDelay(title, content, email, delay) {
+  setTimeout(() => {
+    sendArticleNotification(title, content, email);
+  }, delay);
+}
+
+// Handle news creation request
 app.post("/news", upload.single("image"), (req, res) => {
   const { title, author, content } = req.body;
   const imageFilename = req.file ? req.file.filename : null;
@@ -642,9 +669,11 @@ app.post("/news", upload.single("image"), (req, res) => {
 
         const emails = result.map((row) => row.email);
 
-        // Send email notification to each confirmed subscriber
-        emails.forEach((email) => {
-          sendArticleNotification(title, author, content, email);
+        // Send email notification to each confirmed subscriber with a delay
+        const rateLimitDelay = 1000; // 1 second delay between each email (adjust as needed)
+        emails.forEach((email, index) => {
+          const notificationDelay = index * rateLimitDelay;
+          sendNewsNotificationWithDelay(title, content, email, notificationDelay);
         });
       });
 
@@ -652,6 +681,7 @@ app.post("/news", upload.single("image"), (req, res) => {
     }
   });
 });
+
 
 
 app.get("/news/:id", (req, res) => {
@@ -940,15 +970,6 @@ app.get('/dashboard/cart', (req, res) => {
     return res.json(cartItems);
   });
 });
-
-
-
-
-//newsletter
-
-
-
-
 
 app.listen(3001, () => {
   console.log("running server");
