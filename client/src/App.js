@@ -15,6 +15,7 @@ import News from "./pages/News";
 import Contact from "./components/Contact";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
+import Cart from "./components/Cart";
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard'
 import EditBookForm from './components/EditBookForm';
@@ -36,11 +37,14 @@ function App() {
       <Route path="signup" element={<Signup />} />
       <Route path="products" element={<Products />} />
       <Route path="/ProductDetails/:id" element={<ProductDetails />} />
+      <Route path="/Cart" element={<Cart />} />
+      <Route path="/Cart/:productId" element={<Cart />} />
       <Route path="/BookForm" element={<BookForm />} />
       <Route path="/CreateUser" element={<CreateUser />} />
       <Route path="/EditUser/:id" element={<EditUser/>} />
       <Route path="/EditBookForm/:id" element={<EditBookForm />} />
       <Route path="dashboard" element={<Dashboard/>}/>
+      
       <Route path="/blog" element={<News/>}/>
       <Route path="contact" element={<Contact/>}/>
       <Route path="newsList" element={<NewsList/>}/>
