@@ -872,9 +872,11 @@ app.delete("/books/:id", (req, res) => {
 app.post('/cart/add', (req, res) => {
   const { productId,quantity } = req.body;
 
+  const selectedQuantity = quantity || 1;
+
   // Insert the product into the cart table
   const sql = 'INSERT INTO cart (productId,quantity) VALUES (?,?)';
-  db.query(sql, [productId,quantity], (err, result) => {
+  db.query(sql, [productId,selectedQuantity], (err, result) => {
     if (err) {
       console.error('Error adding item to cart:', err);
       return res.status(500).json({ error: 'Failed to add item to cart' });
@@ -939,6 +941,41 @@ app.get('/cart/buy', (req, res) => {
         return res.status(500).json({ error: 'Failed to add selected books to dashboard' });
       }
 
+      const sqlDelete = 'DELETE * FROM cart';
+      db.query(sqlDelete, (err, result) => {
+        if (err) {
+          console.error('Error emptying the cart:', err);
+          return res.status(500).json({ error: 'Failed to empty the cart' });
+        }
+
+        return res.json({ message: 'Purchase completed successfully' });
+      });
+    });
+  });
+});
+
+app.post('/cart/buy', (req, res) => {
+  const sqlSelect = 'SELECT * FROM cart';
+  db.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.error('Error retrieving selected books:', err);
+      return res.status(500).json({ error: 'Failed to retrieve selected books' });
+    }
+
+    const selectedBooks = result.map((row) => {
+      return {
+        productId: row.productId,
+        quantity: row.quantity,
+      };
+    });
+
+    const sqlInsert = 'INSERT INTO dashboard_cart (productId, quantity) VALUES ?';
+    db.query(sqlInsert, [selectedBooks.map((book) => [book.productId, book.quantity])], (err, result) => {
+      if (err) {
+        console.error('Error adding selected books to dashboard:', err);
+        return res.status(500).json({ error: 'Failed to add selected books to dashboard' });
+      }
+
       const sqlDelete = 'DELETE FROM cart';
       db.query(sqlDelete, (err, result) => {
         if (err) {
@@ -952,8 +989,9 @@ app.get('/cart/buy', (req, res) => {
   });
 });
 
+
 app.get('/dashboard/cart', (req, res) => {
-  const sql = 'SELECT * FROM dashboard_cart';
+  const sql = 'SELECT c.productId, c.quantity, b.title FROM dashboard_cart c JOIN books b ON c.productId = b.id';
   db.query(sql, (err, result) => {
     if (err) {
       console.error('Error retrieving dashboard cart:', err);
@@ -964,6 +1002,7 @@ app.get('/dashboard/cart', (req, res) => {
       return {
         productId: row.productId,
         quantity: row.quantity,
+        title: row.title,
       };
     });
 
